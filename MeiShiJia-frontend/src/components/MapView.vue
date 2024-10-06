@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
+import WindowsView from './WindowsView.vue'
 const scale = ref(1)
 const translateX = ref(0)
 const translateY = ref(0)
@@ -52,35 +52,21 @@ const endDrag = () => {
       class="map-svg"
       :style="{ transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)` }"
     />
-    <div class="info-box">
-      <h3>信息窗口</h3>
-      <p>这里是一些信息。</p>
-    </div>
+    <WindowsView />
   </div>
 </template>
 
 <style scoped>
 .map-container {
   position: relative;
-  width: 100vw; /* 全宽 */
-  height: 100vh; /* 全高 */
-  overflow: hidden; /* 隐藏溢出内容 */
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .map-svg {
-  width: 100%; /* 自适应宽度 */
-  height: auto; /* 保持比例 */
-  cursor: grab; /* 拖动光标 */
-}
-
-.info-box {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: auto;
+  cursor: grab;
 }
 </style>
