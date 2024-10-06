@@ -1,10 +1,12 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="info-box">
-    <h3>信息窗口</h3>
-    <p>这里是一些信息。</p>
-  </div>
+    <RouterLink to="/windows">
+    <div class="info-box">
+        <h3>信息窗口</h3>
+        <p>这里是一些信息。</p>
+    </div>
+    </RouterLink>
 </template>
 
 <style scoped>
@@ -17,5 +19,7 @@
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  z-index: 10;
 }
 </style>

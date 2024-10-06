@@ -1,13 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import MapView from '../views/MapView.vue'
+import WindowsView from '../views/WindowsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'map',
+      name: 'Home',
       component: HomeView
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: MapView
+    },
+    {
+      path: '/windows',
+      name: 'windows',
+      component: WindowsView
     }
   ]
 })

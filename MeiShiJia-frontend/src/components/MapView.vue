@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import WindowsView from '../views/WindowsView.vue'
 const scale = ref(1)
 const translateX = ref(0)
 const translateY = ref(0)
