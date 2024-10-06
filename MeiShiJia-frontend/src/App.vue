@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import MapView from './views/MapView.vue'
+import HomeView from './views/HomeView.vue'
 </script>
 
 <template>
-  <MapView />
+  <HomeView />
 </template>

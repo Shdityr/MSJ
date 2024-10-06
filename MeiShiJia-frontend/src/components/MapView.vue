@@ -52,7 +52,6 @@ const endDrag = () => {
       class="map-svg"
       :style="{ transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)` }"
     />
-    <WindowsView />
   </div>
 </template>
 
