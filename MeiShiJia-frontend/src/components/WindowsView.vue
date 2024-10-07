@@ -6,59 +6,132 @@ import MerchantView from './MerchantView.vue'
 const merchants = ref([
   {
     id: 1,
-    name: '商家1',
-    rating: 4.7,
-    averagePrice: 30,
-    location: '位置1',
-    image: '/path/to/image1.jpg'
+    name: 'Golden Dragon Restaurant',
+    image: 'https://via.placeholder.com/300x200',
+    rating: 4.8,
+    averagePrice: 100,
+    location: '123 Dragon Street',
+    contactInfo: '123-456-7890',
+    businessHours: '9:00 AM - 10:00 PM',
+    style: ['Chinese', 'Seafood'],
+    menuDishes: [
+      {
+        id: 101,
+        name: 'Sweet and Sour Pork',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.7
+      },
+      {
+        id: 102,
+        name: 'Kung Pao Chicken',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.9
+      },
+      {
+        id: 103,
+        name: 'Steamed Fish',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.6
+      },
+      {
+        id: 104,
+        name: 'Fettuccine Alfredo',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.7
+      },
+      {
+        id: 105,
+        name: 'Fettuccine Alfredo',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.7
+      }
+    ]
   },
   {
     id: 2,
-    name: '商家2',
+    name: 'Sakura Sushi Bar',
+    image: 'https://via.placeholder.com/300x200',
     rating: 4.5,
-    averagePrice: 25,
-    location: '位置2',
-    image: '/path/to/image2.jpg'
+    averagePrice: 150,
+    location: '789 Sakura Avenue',
+    contactInfo: '987-654-3210',
+    businessHours: '11:00 AM - 9:00 PM',
+    style: ['Japanese', 'Sushi'],
+    menuDishes: [
+      {
+        id: 201,
+        name: 'Salmon Sushi',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.8
+      },
+      {
+        id: 202,
+        name: 'Tuna Roll',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.7
+      },
+      {
+        id: 203,
+        name: 'Miso Soup',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.5
+      },
+      {
+        id: 204,
+        name: 'Fettuccine Alfredo',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.7
+      },
+      {
+        id: 205,
+        name: 'Fettuccine Alfredo',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.7
+      }
+    ]
   },
   {
     id: 3,
-    name: '商家2',
-    rating: 4.5,
-    averagePrice: 25,
-    location: '位置2',
-    image: '/path/to/image2.jpg'
-  },
-  {
-    id: 4,
-    name: '商家2',
-    rating: 4.5,
-    averagePrice: 25,
-    location: '位置2',
-    image: '/path/to/image2.jpg'
-  },
-  {
-    id: 5,
-    name: '商家2',
-    rating: 4.5,
-    averagePrice: 25,
-    location: '位置2',
-    image: '/path/to/image2.jpg'
-  },
-  {
-    id: 6,
-    name: '商家2',
-    rating: 4.5,
-    averagePrice: 25,
-    location: '位置2',
-    image: '/path/to/image2.jpg'
-  },
-  {
-    id: 7,
-    name: '商家2',
-    rating: 4.5,
-    averagePrice: 25,
-    location: '位置2',
-    image: '/path/to/image2.jpg'
+    name: 'Pasta Palace',
+    image: 'https://via.placeholder.com/300x200',
+    rating: 4.6,
+    averagePrice: 80,
+    location: '456 Pasta Blvd',
+    contactInfo: '123-789-4560',
+    businessHours: '10:00 AM - 11:00 PM',
+    style: ['Italian', 'Pasta'],
+    menuDishes: [
+      {
+        id: 301,
+        name: 'Spaghetti Carbonara',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.9
+      },
+      {
+        id: 302,
+        name: 'Lasagna',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.8
+      },
+      {
+        id: 303,
+        name: 'Fettuccine Alfredo',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.7
+      },
+      {
+        id: 304,
+        name: 'Fettuccine Alfredo',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.7
+      },
+      {
+        id: 305,
+        name: 'Fettuccine Alfredo',
+        image: 'https://via.placeholder.com/300x200',
+        rating: 4.7
+      }
+    ]
   }
 ])
 
@@ -68,7 +141,6 @@ const currentMerchantView = ref(null)
 const selectMerchant = (merchantId) => {
   currentMerchant.value = merchantId
 }
-
 
 watch(currentMerchant, (newMerchant) => {
   if (newMerchant) {
@@ -119,7 +191,7 @@ const sortedMerchants = computed(() => {
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 350px;
+  width: 400px;
   height: 90vh;
   overflow-y: auto;
   background-color: #ffffff;
