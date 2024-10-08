@@ -1,70 +1,43 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-const scale = ref(1)
-const translateX = ref(0)
-const translateY = ref(0)
-const isDragging = ref(false)
-const lastMousePosition = ref({ x: 0, y: 0 })
+<script setup>
+import { onMounted, onUnmounted } from "vue";
+import AMapLoader from "@amap/amap-jsapi-loader";
 
-// SVG 文件路径
-const svgPath = new URL('../assets/campus-map.svg', import.meta.url).href
+let map = null;
 
-const zoomMap = (event: WheelEvent) => {
-  event.preventDefault()
-  const zoomFactor = event.deltaY < 0 ? 1.1 : 0.9 // 放大或缩小
-  scale.value *= zoomFactor
-}
+onMounted(() => {
+  window._AMapSecurityConfig = {
+    securityJsCode: "0e017be6b3cf4387c1e4765dd3a22c09",
+  };
+  AMapLoader.load({
+    key: "2f70ab6d3da02f752e9ad66585d479a8", // 申请好的Web端开发者Key，首次调用 load 时必填
+    version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+    plugins: [], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+  })
+    .then((AMap) => {
+      map = new AMap.Map("container", {
+        // 设置地图容器id
+        viewMode: "3D", // 是否为3D地图模式
+        zoom: 15, // 初始化地图级别
+        center: [114.36432501897332, 30.535764663035046], // 初始化地图中心点位置
+      });
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+});
 
-const startDrag = (event: MouseEvent) => {
-  isDragging.value = true
-  lastMousePosition.value = { x: event.clientX, y: event.clientY }
-}
-
-const drag = (event: MouseEvent) => {
-  if (!isDragging.value) return
-
-  const dx = event.clientX - lastMousePosition.value.x
-  const dy = event.clientY - lastMousePosition.value.y
-
-  translateX.value += dx
-  translateY.value += dy
-
-  lastMousePosition.value = { x: event.clientX, y: event.clientY }
-}
-
-const endDrag = () => {
-  isDragging.value = false
-}
+onUnmounted(() => {
+  map?.destroy();
+});
 </script>
 
 <template>
-  <div
-    class="map-container"
-    @wheel="zoomMap"
-    @mousedown="startDrag"
-    @mousemove="drag"
-    @mouseup="endDrag"
-  >
-    <img
-      :src="svgPath"
-      alt="地图"
-      class="map-svg"
-      :style="{ transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)` }"
-    />
-  </div>
+  <div id="container"></div>
 </template>
 
 <style scoped>
-.map-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.map-svg {
+#container {
   width: 100%;
-  height: auto;
-  cursor: grab;
+  height: 800px;
 }
 </style>
