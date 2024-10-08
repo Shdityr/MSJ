@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import WindowsView from '../components/WindowsView.vue'
+import MerchantView from '../components/MerchantView.vue'
 import MapView from '../components/MapView.vue'
 </script>
 
 <template>
   <div class="windows">
-    <WindowsView />
+    <MerchantView />
   </div>
   <MapView />
 </template>

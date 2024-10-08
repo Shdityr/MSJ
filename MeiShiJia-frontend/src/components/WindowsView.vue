@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import MerchantView from './MerchantView.vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 // 示例数据，可以替换成实际的商家数据
 const merchants = ref([
@@ -135,20 +137,9 @@ const merchants = ref([
   }
 ])
 
-const currentMerchant = ref(null)
-const currentMerchantView = ref(null)
-
 const selectMerchant = (merchantId) => {
-  currentMerchant.value = merchantId
+  router.push({ name: 'merchant', params: { merchantId: merchantId } })
 }
-
-watch(currentMerchant, (newMerchant) => {
-  if (newMerchant) {
-    currentMerchantView.value = MerchantView
-  } else {
-    currentMerchantView.value = null
-  }
-})
 
 // 按评分顺序排序商家
 const sortedMerchants = computed(() => {
@@ -157,52 +148,24 @@ const sortedMerchants = computed(() => {
 </script>
 
 <template>
-  <div class="merchant-list">
-    <div v-if="!currentMerchant">
-      <div
-        v-for="merchant in sortedMerchants"
-        :key="merchant.id"
-        class="merchant-item"
-        @click="selectMerchant(merchant.id)"
-      >
-        <img :src="merchant.image" alt="商家图片" class="merchant-image" />
-        <div class="merchant-info">
-          <h3 class="merchant-name">{{ merchant.name }}</h3>
-          <p class="merchant-rating">
-            评分: {{ merchant.rating }} | 人均: ¥{{ merchant.averagePrice }}
-          </p>
-          <p class="merchant-location">{{ merchant.location }}</p>
-        </div>
-      </div>
-    </div>
-    <div v-if="currentMerchant">
-      <component
-        :is="currentMerchantView"
-        v-if="currentMerchantView"
-        :merchant-id="currentMerchant"
-        @goBack="currentMerchant = null"
-      />
+  <div
+    v-for="merchant in sortedMerchants"
+    :key="merchant.id"
+    class="merchant-item"
+    @click="selectMerchant(merchant.id)"
+  >
+    <img :src="merchant.image" alt="商家图片" class="merchant-image" />
+    <div class="merchant-info">
+      <h3 class="merchant-name">{{ merchant.name }}</h3>
+      <p class="merchant-rating">
+        评分: {{ merchant.rating }} | 人均: ¥{{ merchant.averagePrice }}
+      </p>
+      <p class="merchant-location">{{ merchant.location }}</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.merchant-list {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  width: 400px;
-  height: 90vh;
-  overflow-y: auto;
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 10; /* 确保在上层 */
-  opacity: 0.95; /* 增加一点透明感 */
-  backdrop-filter: blur(5px); /* 可选：添加背景模糊效果 */
-}
-
 .merchant-item {
   display: flex;
   flex-direction: row;

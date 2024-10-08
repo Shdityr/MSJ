@@ -139,10 +139,15 @@ const merchants = [
   }
 ]
 
+const dishId = route.params.dishId
 const merchantId = route.params.merchantId
 
 const currentMerchant = computed(() => {
   return merchants.find((merchant) => merchant.id === merchantId)
+})
+
+const currentDish = computed(() => {
+  return currentMerchant.menuDishes.find((dish) => dish.id === dishId)
 })
 
 const sortedMenuDishes = computed(() => {
@@ -181,8 +186,8 @@ const sortedReviews = ref([
   }
 ])
 
-function goBack() {
-  router.push({ name: 'Home' })
+function goBack(merchantId) {
+  router.push({ name: 'merchant', params: { merchantId: merchantId } })
 }
 
 const selectDish = (merchantId, dishId) => {
@@ -191,10 +196,10 @@ const selectDish = (merchantId, dishId) => {
 </script>
 
 <template>
-  <div class="merchant-container">
-    <div class="merchant-header">
+  <div class="dish-container">
+    <div class="dish-header">
       <svg
-        @click="goBack"
+        @click="goBack(merchantId)"
         xmlns="http://www.w3.org/2000/svg"
         class="back-arrow"
         viewBox="0 0 24 24"
@@ -208,20 +213,9 @@ const selectDish = (merchantId, dishId) => {
           stroke-linejoin="round"
         />
       </svg>
-      <img :src="currentMerchant.image" alt="商家图片" class="merchant-image" />
-    </div>
-    <!-- <p>123</p> -->
-    <!-- 商家信息 -->
-    <div class="merchant-info">
       <h2 class="merchant-name">{{ currentMerchant.name }}</h2>
-      <p class="merchant-rating">Rating: {{ currentMerchant.rating }}</p>
-      <p class="merchant-location">Location: {{ currentMerchant.location }}</p>
-      <p class="merchant-contact">Contact: {{ currentMerchant.contactInfo }}</p>
-      <p class="merchant-hours">Business Hours: {{ currentMerchant.businessHours }}</p>
-      <p class="merchant-average">Average Price: ¥{{ currentMerchant.averagePrice }}</p>
-      <p class="merchant-style">Style: {{ currentMerchant.style.join(', ') }}</p>
     </div>
-
+    <!-- 商家信息 -->
     <div class="menu-dishes">
       <h3>Menu Dishes</h3>
       <div class="dishes-container">
@@ -238,6 +232,17 @@ const selectDish = (merchantId, dishId) => {
           </div>
         </div>
       </div>
+    </div>
+    <!-- <p>123</p> -->
+
+    <div class="info">
+      <h2 class="merchant-name">{{ currentMerchant.name }}</h2>
+      <p class="merchant-rating">Rating: {{ currentMerchant.rating }}</p>
+      <p class="merchant-location">Location: {{ currentMerchant.location }}</p>
+      <p class="merchant-contact">Contact: {{ currentMerchant.contactInfo }}</p>
+      <p class="merchant-hours">Business Hours: {{ currentMerchant.businessHours }}</p>
+      <p class="merchant-average">Average Price: ¥{{ currentMerchant.averagePrice }}</p>
+      <p class="merchant-style">Style: {{ currentMerchant.style.join(', ') }}</p>
     </div>
 
     <div class="reviews-section">
@@ -271,7 +276,7 @@ const selectDish = (merchantId, dishId) => {
 
 <style scoped>
 /* 整体容器 */
-.merchant-container {
+.dish-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -279,34 +284,32 @@ const selectDish = (merchantId, dishId) => {
 }
 
 /* 顶部返回箭头和商家图片 */
-.merchant-header {
+.dish-header {
+  display: flex; /* 使用 Flexbox 布局 */
+  align-items: center; /* 垂直居中对齐 */
   position: relative;
-  width: 108%;
-  height: 100%;
-  max-width: 600px;
+  width: 100%; /* 修改为 100% */
+  max-width: 600px; /* 限制最大宽度 */
+  padding-bottom: 20px;
 }
 
 /* 返回箭头 */
 .back-arrow {
-  position: absolute;
-  top: 10px;
-  left: 10px;
   width: 24px;
   height: 24px;
   cursor: pointer;
   color: #333;
+  margin-right: 10px; /* 给返回箭头添加右边距，使其与商家名称分开 */
 }
 
-/* 商家图片 */
-.merchant-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
+/* 商家名称样式 */
+.merchant-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0; /* 去掉默认的 margin，确保紧接着返回箭头 */
 }
 
-/* 商家信息部分 */
-.merchant-info {
+.info {
   margin-top: 20px;
   width: 108%;
   max-width: 600px;
@@ -314,13 +317,6 @@ const selectDish = (merchantId, dishId) => {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* 商家名称样式 */
-.merchant-name {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
 }
 
 /* 商家其他信息样式 */
