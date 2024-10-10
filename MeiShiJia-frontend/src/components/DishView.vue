@@ -1,190 +1,22 @@
 <!-- src/components/MerchantView.vue -->
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import axios from 'axios'
 
 // 获取路由信息和路由器实例
 const route = useRoute()
 const router = useRouter()
 
-const merchants = [
-  {
-    id: '1',
-    name: 'Golden Dragon Restaurant',
-    image: 'https://via.placeholder.com/300x200',
-    rating: 4.8,
-    averagePrice: 100,
-    location: '123 Dragon Street',
-    contactInfo: '123-456-7890',
-    businessHours: '9:00 AM - 10:00 PM',
-    style: ['Chinese', 'Seafood'],
-    menuDishes: [
-      {
-        id: 101,
-        name: 'Sweet and Sour Pork',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.7
-      },
-      {
-        id: 102,
-        name: 'Kung Pao Chicken',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.9
-      },
-      {
-        id: 103,
-        name: 'Steamed Fish',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.6
-      },
-      {
-        id: 104,
-        name: 'Fettuccine Alfredo',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.7
-      },
-      {
-        id: 105,
-        name: 'Fettuccine Alfredo',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.7
-      }
-    ]
-  },
-  {
-    id: '2',
-    name: 'Sakura Sushi Bar',
-    image: 'https://via.placeholder.com/300x200',
-    rating: 4.5,
-    averagePrice: 150,
-    location: '789 Sakura Avenue',
-    contactInfo: '987-654-3210',
-    businessHours: '11:00 AM - 9:00 PM',
-    style: ['Japanese', 'Sushi'],
-    menuDishes: [
-      {
-        id: 201,
-        name: 'Salmon Sushi',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.8
-      },
-      {
-        id: 202,
-        name: 'Tuna Roll',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.7
-      },
-      {
-        id: 203,
-        name: 'Miso Soup',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.5
-      },
-      {
-        id: 204,
-        name: 'Fettuccine Alfredo',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.7
-      },
-      {
-        id: 205,
-        name: 'Fettuccine Alfredo',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.7
-      }
-    ]
-  },
-  {
-    id: '3',
-    name: 'Pasta Palace',
-    image: 'https://via.placeholder.com/300x200',
-    rating: 4.6,
-    averagePrice: 80,
-    location: '456 Pasta Blvd',
-    contactInfo: '123-789-4560',
-    businessHours: '10:00 AM - 11:00 PM',
-    style: ['Italian', 'Pasta'],
-    menuDishes: [
-      {
-        id: 301,
-        name: 'Spaghetti Carbonara',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.9
-      },
-      {
-        id: 302,
-        name: 'Lasagna',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.8
-      },
-      {
-        id: 303,
-        name: 'Fettuccine Alfredo',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.7
-      },
-      {
-        id: 304,
-        name: 'Fettuccine Alfredo',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.7
-      },
-      {
-        id: 305,
-        name: 'Fettuccine Alfredo',
-        image: 'https://via.placeholder.com/300x200',
-        rating: 4.7
-      }
-    ]
-  }
-]
-
-const dishId = route.params.dishId
 const merchantId = route.params.merchantId
-
-const currentMerchant = computed(() => {
-  return merchants.find((merchant) => merchant.id === merchantId)
-})
+const currentMerchant = ref(null)
+const dishId = route.params.dishId
+const Reviews = ref([])
+const Dishes = ref([])
 
 const currentDish = computed(() => {
-  return currentMerchant.menuDishes.find((dish) => dish.id === dishId)
+  return Dishes.value.find((dish) => dish.id === dishId)
 })
-
-const sortedMenuDishes = computed(() => {
-  const currentMerchant = merchants.find((merchant) => merchant.id === merchantId)
-  if (!currentMerchant || !currentMerchant.menuDishes) {
-    return []
-  }
-
-  return currentMerchant.menuDishes.slice().sort((a, b) => b.rating - a.rating)
-})
-
-const sortedReviews = ref([
-  {
-    id: 1,
-    userAvatar: 'https://via.placeholder.com/300x300',
-    userName: 'Frank',
-    time: '2024-10-01',
-    content: 'If you love spicy food, this is the place to be! The hotpot is fantastic.',
-    images: [
-      'https://via.placeholder.com/300x300',
-      'https://via.placeholder.com/300x300',
-      'https://via.placeholder.com/300x300',
-      'https://via.placeholder.com/300x300',
-      'https://via.placeholder.com/300x300'
-    ],
-    rating: 5.0
-  },
-  {
-    id: 2,
-    userAvatar: 'https://via.placeholder.com/300x300',
-    userName: 'Grace',
-    time: '2024-09-30',
-    content: 'Mapo tofu is a must-try! A bit too spicy for me though.',
-    images: ['https://via.placeholder.com/300x300'],
-    rating: 4.5
-  }
-])
 
 function goBack(merchantId) {
   router.push({ name: 'merchant', params: { merchantId: merchantId } })
@@ -193,6 +25,62 @@ function goBack(merchantId) {
 const selectDish = (merchantId, dishId) => {
   router.push({ name: 'dish', params: { merchantId: merchantId, dishId: dishId } })
 }
+
+const fetchData = async () => {
+  try {
+    const response = await axios.get('/restaurants', {
+      params: {
+        RestaurantId: merchantId,
+        ReviewsSorted: 1,
+        DishesSorted: 1
+      }
+    })
+    currentMerchant.value = response.data
+  } catch (error) {
+    console.error('获取商家信息失败:', error)
+  }
+
+  try {
+    const DishIds = currentMerchant.value.DishesId;
+
+    for (let i = 0; i < DishIds.length; i++) {
+      const DishId = DishIds[i];
+
+      const response = await axios.get('/dishes', {
+        params: {
+          DishesId: DishId,
+          DishesSorted: 1
+        }
+      });
+
+      Dishes.value.push(response.data);
+    }
+  } catch (error) {
+    console.error('获取菜品信息失败:', error)
+  }
+
+  try {
+    const reviewIds = currentMerchant.value.reviewsId;
+
+    for (let i = 0; i < reviewIds.length; i++) {
+      const reviewId = reviewIds[i];
+
+      const response = await axios.get('/reviews', {
+        params: {
+          ReviewId: reviewId
+        }
+      });
+
+      Reviews.value.push(response.data);
+    }
+  } catch (error) {
+    console.error('获取回复信息失败:', error)
+  }
+}
+
+onMounted(() => {
+  fetchData()
+})
 </script>
 
 <template>
@@ -215,7 +103,6 @@ const selectDish = (merchantId, dishId) => {
       </svg>
       <h2 class="merchant-name">{{ currentMerchant.name }}</h2>
     </div>
-    <!-- 商家信息 -->
     <div class="menu-dishes">
       <h3>Menu Dishes</h3>
       <div class="dishes-container">
@@ -235,7 +122,7 @@ const selectDish = (merchantId, dishId) => {
     </div>
     <!-- <p>123</p> -->
 
-    <div class="info">
+    <!-- <div class="info">
       <h2 class="merchant-name">{{ currentMerchant.name }}</h2>
       <p class="merchant-rating">Rating: {{ currentMerchant.rating }}</p>
       <p class="merchant-location">Location: {{ currentMerchant.location }}</p>
@@ -243,7 +130,7 @@ const selectDish = (merchantId, dishId) => {
       <p class="merchant-hours">Business Hours: {{ currentMerchant.businessHours }}</p>
       <p class="merchant-average">Average Price: ¥{{ currentMerchant.averagePrice }}</p>
       <p class="merchant-style">Style: {{ currentMerchant.style.join(', ') }}</p>
-    </div>
+    </div> -->
 
     <div class="reviews-section">
       <h3>Reviews</h3>

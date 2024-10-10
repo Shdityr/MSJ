@@ -15,6 +15,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
+    "axios": "^1.7.7",
     "pdfjs-dist": "^4.6.82",
     "pinia": "^2.1.7",
     "simplebar": "^6.2.7",
