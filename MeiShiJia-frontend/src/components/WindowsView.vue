@@ -8,7 +8,7 @@ const merchants = ref([])
 
 const fetchMerchants = async () => {
   try {
-    const response = await axios.get('/Home')
+    const response = await axios.get('localhost:8081/Home')
     merchants.value = response.data
   } catch (error) {
     console.error('Error fetching merchants:', error)

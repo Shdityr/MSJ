@@ -19,7 +19,7 @@ const selectDish = (merchantId, dishId) => {
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('/restaurants', {
+    const response = await axios.get('localhost:8081/restaurants', {
       params: {
         RestaurantId: merchantId,
         ReviewsSorted: 1,
@@ -37,7 +37,7 @@ const fetchData = async () => {
     for (let i = 0; i < DishIds.length; i++) {
       const DishId = DishIds[i];
 
-      const response = await axios.get('/dishes', {
+      const response = await axios.get('localhost:8081/dishes', {
         params: {
           DishesId: DishId,
           DishesSorted: 1
@@ -56,7 +56,7 @@ const fetchData = async () => {
     for (let i = 0; i < reviewIds.length; i++) {
       const reviewId = reviewIds[i];
 
-      const response = await axios.get('/reviews', {
+      const response = await axios.get('localhost:8081/reviews', {
         params: {
           ReviewId: reviewId
         }
