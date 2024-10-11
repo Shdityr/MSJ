@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController  //表明这是一个控制器类
 //@RequestMapping("/index")   //处理 /article 路径下的请求
+@CrossOrigin(origins = "http://localhost:5173")
 public class MainController {
     @Autowired  //将 ArticleService 服务注入到控制器中，用于处理文章相关的逻辑。
     MainService mainService;
@@ -41,12 +42,14 @@ public class MainController {
     //@RequestMapping(value = "/Home")
     @RequestMapping(value = "/Home", method = RequestMethod.GET)  //将处理POST请求的URL映射到 addNewArticle 方法上。@RequestBody int id
     public @ResponseBody List<RestaurantInfo> getAllRestaurantInfo() {
+        System.out.println("---------------------------------");
         return mainService.getAllRestaurantInfo();
     }
 
 
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)  //将处理POST请求的URL映射到 addNewArticle 方法上。@RequestBody int id
     public @ResponseBody RestaurantInfo_All getRestaurantInfo_All(int RestaurantId, int ReviewsSorted, int DishesSorted) {
+        System.out.println("restaurants");
         return mainService.getRestaurantInfo_All(RestaurantId,ReviewsSorted,DishesSorted);
     }
 
@@ -57,13 +60,13 @@ public class MainController {
 
 
     @RequestMapping(value = "/dishes",method = RequestMethod.GET)
-    public @ResponseBody DishInfo getDishInfo() {
-        return mainService.getDishInfo(101,1);
+    public @ResponseBody DishInfo getDishInfo(int DishesId, int DishesSorted) {
+        return mainService.getDishInfo(DishesId, DishesSorted);
     }
 
     @RequestMapping(value = "/reviews",method = RequestMethod.GET)
-    public @ResponseBody ReviewInfo getReviewInfo() {
-        return mainService.getReviewInfo(11);
+    public @ResponseBody ReviewInfo getReviewInfo(int ReviewId) {
+        return mainService.getReviewInfo(ReviewId);
     }
 
 

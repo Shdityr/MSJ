@@ -41,37 +41,37 @@ const fetchData = async () => {
   }
 
   try {
-    const DishIds = currentMerchant.value.DishesId;
+    const DishIds = currentMerchant.value.DishesId
 
     for (let i = 0; i < DishIds.length; i++) {
-      const DishId = DishIds[i];
+      const DishId = DishIds[i]
 
       const response = await axios.get('localhost:8081/dishes', {
         params: {
           DishesId: DishId,
           DishesSorted: 1
         }
-      });
+      })
 
-      Dishes.value.push(response.data);
+      Dishes.value.push(response.data)
     }
   } catch (error) {
     console.error('获取菜品信息失败:', error)
   }
 
   try {
-    const reviewIds = currentMerchant.value.reviewsId;
+    const reviewIds = currentMerchant.value.reviewsId
 
     for (let i = 0; i < reviewIds.length; i++) {
-      const reviewId = reviewIds[i];
+      const reviewId = reviewIds[i]
 
       const response = await axios.get('localhost:8081/reviews', {
         params: {
           ReviewId: reviewId
         }
-      });
+      })
 
-      Reviews.value.push(response.data);
+      Reviews.value.push(response.data)
     }
   } catch (error) {
     console.error('获取回复信息失败:', error)

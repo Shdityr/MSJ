@@ -8,8 +8,9 @@ const merchants = ref([])
 
 const fetchMerchants = async () => {
   try {
-    const response = await axios.get('localhost:8081/Home')
+    const response = await axios.get('http://localhost:8081/Home')
     merchants.value = response.data
+    console.log(merchants)
   } catch (error) {
     console.error('Error fetching merchants:', error)
   }
@@ -22,7 +23,6 @@ onMounted(() => {
 const selectMerchant = (merchantId) => {
   router.push({ name: 'merchant', params: { merchantId: merchantId } })
 }
-
 </script>
 
 <template>

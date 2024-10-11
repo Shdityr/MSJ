@@ -115,7 +115,9 @@ public class MainService {
             float location_y = restaurants.get(i).getLocation_y();
 
             RestaurantInfo restaurantInfo = new RestaurantInfo(id, name, rating, averagePrice, location, images, businessHours,location_x,location_y);
+
             ret.add(restaurantInfo);
+            System.out.println("111111111111");
         }
         return ret;
     }
@@ -173,11 +175,13 @@ public class MainService {
 
         RestaurantInfo_All ret = new RestaurantInfo_All(id, name, rating, averagePrice, location, images, businessHours, contactInfo, reviewsId, Style, DishesId,location_x,location_y
         );
+//        System.out.println(ret);
         return ret;
     }
 
 
     public DishInfo getDishInfo(int DishesId, int ReviewsSorted) {
+        System.out.println(DishesId);
         DishEntity dish = DishRepository.findById(DishesId).get();
 
         int id=dish.getId();
