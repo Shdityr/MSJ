@@ -1,6 +1,6 @@
 <!-- src/components/MerchantView.vue -->
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
@@ -10,8 +10,17 @@ const router = useRouter()
 
 const merchantId = route.params.merchantId
 const currentMerchant = ref(null)
+const dishId = route.params.dishId
 const Reviews = ref([])
 const Dishes = ref([])
+
+const currentDish = computed(() => {
+  return Dishes.value.find((dish) => dish.id === dishId)
+})
+
+function goBack(merchantId) {
+  router.push({ name: 'merchant', params: { merchantId: merchantId } })
+}
 
 const selectDish = (merchantId, dishId) => {
   router.push({ name: 'dish', params: { merchantId: merchantId, dishId: dishId } })
@@ -19,7 +28,7 @@ const selectDish = (merchantId, dishId) => {
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://localhost:8081/restaurants', {
+    const response = await axios.get('localhost:8081/restaurants', {
       params: {
         RestaurantId: merchantId,
         ReviewsSorted: 1,
@@ -27,7 +36,6 @@ const fetchData = async () => {
       }
     })
     currentMerchant.value = response.data
-    console.log(currentMerchant.value)
   } catch (error) {
     console.error('获取商家信息失败:', error)
   }
@@ -38,7 +46,7 @@ const fetchData = async () => {
     for (let i = 0; i < DishIds.length; i++) {
       const DishId = DishIds[i]
 
-      const response = await axios.get('http://localhost:8081/dishes', {
+      const response = await axios.get('localhost:8081/dishes', {
         params: {
           DishesId: DishId,
           DishesSorted: 1
@@ -46,7 +54,6 @@ const fetchData = async () => {
       })
 
       Dishes.value.push(response.data)
-      console.log(response.data)
     }
   } catch (error) {
     console.error('获取菜品信息失败:', error)
@@ -58,14 +65,13 @@ const fetchData = async () => {
     for (let i = 0; i < reviewIds.length; i++) {
       const reviewId = reviewIds[i]
 
-      const response = await axios.get('http://localhost:8081/reviews', {
+      const response = await axios.get('localhost:8081/reviews', {
         params: {
           ReviewId: reviewId
         }
       })
 
       Reviews.value.push(response.data)
-      console.log(response.data)
     }
   } catch (error) {
     console.error('获取回复信息失败:', error)
@@ -78,80 +84,77 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="currentMerchant">
-    <h3>Menu Dishes</h3>
-    <div class="merchant-container">
-      <div class="merchant-header">
-        <svg
-          @click="goBack"
-          xmlns="http://www.w3.org/2000/svg"
-          class="back-arrow"
-          viewBox="0 0 24 24"
+  <div class="dish-container">
+    <div class="dish-header">
+      <svg
+        @click="goBack(merchantId)"
+        xmlns="http://www.w3.org/2000/svg"
+        class="back-arrow"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M15 18l-6-6 6-6"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <h2 class="merchant-name">{{ currentMerchant.name }}</h2>
+    </div>
+    <div class="menu-dishes">
+      <h3>Menu Dishes</h3>
+      <div class="dishes-container">
+        <div
+          v-for="dish in sortedMenuDishes"
+          :key="dish.id"
+          class="dish-item"
+          @click="selectDish(currentMerchant.id, dish.id)"
         >
-          <path
-            d="M15 18l-6-6 6-6"
-            stroke="currentColor"
-            stroke-width="2"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        <img :src="currentMerchant.images[0]" alt="商家图片" class="merchant-image" />
-      </div>
-
-      <div class="merchant-info">
-        <h2 class="merchant-name">{{ currentMerchant.name }}</h2>
-        <p class="merchant-rating">评分: {{ currentMerchant.rating }}</p>
-        <p class="merchant-location">地点: {{ currentMerchant.location }}</p>
-        <p class="merchant-contact">联系方式: {{ currentMerchant.contactInfo }}</p>
-        <p class="merchant-hours">营业时间: {{ currentMerchant.businessHours }}</p>
-        <p class="merchant-average">平均价格: ¥{{ currentMerchant.averagePrice }}</p>
-        <p class="merchant-style">风格: {{ currentMerchant.Style.join(', ') }}</p>
-      </div>
-
-      <div class="menu-dishes">
-        <h3>Menu Dishes</h3>
-        <div class="dishes-container">
-          <div
-            v-for="dish in Dishes"
-            :key="dish.id"
-            class="dish-item"
-            @click="selectDish(currentMerchant.id, dish.id)"
-          >
-            <img :src="dish.image" alt="菜品图片" class="dish-image" />
-            <div class="dish-info">
-              <h4 class="dish-name">{{ dish.name }}</h4>
-              <p class="dish-rating">{{ dish.rating }}分</p>
-            </div>
+          <img :src="dish.image" alt="菜品图片" class="dish-image" />
+          <div class="dish-info">
+            <h4 class="dish-name">{{ dish.name }}</h4>
+            <p class="dish-rating">{{ dish.rating }}分</p>
           </div>
         </div>
       </div>
+    </div>
+    <!-- <p>123</p> -->
 
-      <div class="reviews-section">
-        <h3>Reviews</h3>
-        <div class="review-item" v-for="review in Reviews" :key="review.id">
-          <div class="review-header">
-            <div class="review-header-left">
-              <img :src="review.userAvatar" alt="用户头像" class="review-avatar" />
-              <div class="review-info">
-                <h4 class="review-username">{{ review.userName }}</h4>
-                <p class="review-time">{{ review.time }}</p>
-              </div>
+    <!-- <div class="info">
+      <h2 class="merchant-name">{{ currentMerchant.name }}</h2>
+      <p class="merchant-rating">Rating: {{ currentMerchant.rating }}</p>
+      <p class="merchant-location">Location: {{ currentMerchant.location }}</p>
+      <p class="merchant-contact">Contact: {{ currentMerchant.contactInfo }}</p>
+      <p class="merchant-hours">Business Hours: {{ currentMerchant.businessHours }}</p>
+      <p class="merchant-average">Average Price: ¥{{ currentMerchant.averagePrice }}</p>
+      <p class="merchant-style">Style: {{ currentMerchant.style.join(', ') }}</p>
+    </div> -->
+
+    <div class="reviews-section">
+      <h3>Reviews</h3>
+      <div class="review-item" v-for="review in sortedReviews" :key="review.id">
+        <div class="review-header">
+          <div class="review-header-left">
+            <img :src="review.userAvatar" alt="用户头像" class="review-avatar" />
+            <div class="review-info">
+              <h4 class="review-username">{{ review.userName }}</h4>
+              <p class="review-time">{{ review.time }}</p>
             </div>
-            <!-- 将 rating 显示在右上角 -->
-            <div class="review-rating">{{ review.rating }} ★</div>
           </div>
-          <p class="review-content">{{ review.content }}</p>
-          <div v-if="review.images.length > 0" class="review-images">
-            <img
-              v-for="(image, index) in review.images.slice(0, 3)"
-              :key="index"
-              :src="image"
-              alt="评论图片"
-              class="review-image"
-            />
-          </div>
+          <!-- 将 rating 显示在右上角 -->
+          <div class="review-rating">{{ review.rating }} ★</div>
+        </div>
+        <p class="review-content">{{ review.content }}</p>
+        <div v-if="review.images.length > 0" class="review-images">
+          <img
+            v-for="(image, index) in review.images.slice(0, 3)"
+            :key="index"
+            :src="image"
+            alt="评论图片"
+            class="review-image"
+          />
         </div>
       </div>
     </div>
@@ -160,7 +163,7 @@ onMounted(() => {
 
 <style scoped>
 /* 整体容器 */
-.merchant-container {
+.dish-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -168,34 +171,32 @@ onMounted(() => {
 }
 
 /* 顶部返回箭头和商家图片 */
-.merchant-header {
+.dish-header {
+  display: flex; /* 使用 Flexbox 布局 */
+  align-items: center; /* 垂直居中对齐 */
   position: relative;
-  width: 108%;
-  height: 100%;
-  max-width: 600px;
+  width: 100%; /* 修改为 100% */
+  max-width: 600px; /* 限制最大宽度 */
+  padding-bottom: 20px;
 }
 
 /* 返回箭头 */
 .back-arrow {
-  position: absolute;
-  top: 10px;
-  left: 10px;
   width: 24px;
   height: 24px;
   cursor: pointer;
   color: #333;
+  margin-right: 10px; /* 给返回箭头添加右边距，使其与商家名称分开 */
 }
 
-/* 商家图片 */
-.merchant-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
+/* 商家名称样式 */
+.merchant-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0; /* 去掉默认的 margin，确保紧接着返回箭头 */
 }
 
-/* 商家信息部分 */
-.merchant-info {
+.info {
   margin-top: 20px;
   width: 108%;
   max-width: 600px;
@@ -203,13 +204,6 @@ onMounted(() => {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* 商家名称样式 */
-.merchant-name {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
 }
 
 /* 商家其他信息样式 */

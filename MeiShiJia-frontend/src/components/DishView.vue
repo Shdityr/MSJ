@@ -104,7 +104,7 @@ onMounted(() => {
       <h2 class="merchant-name">{{ currentMerchant.name }}</h2>
     </div>
     <div class="menu-dishes">
-      <h3>Menu Dishes</h3>
+      <h3>菜品</h3>
       <div class="dishes-container">
         <div
           v-for="dish in sortedMenuDishes"
@@ -122,15 +122,12 @@ onMounted(() => {
     </div>
     <!-- <p>123</p> -->
 
-    <!-- <div class="info">
-      <h2 class="merchant-name">{{ currentMerchant.name }}</h2>
-      <p class="merchant-rating">Rating: {{ currentMerchant.rating }}</p>
-      <p class="merchant-location">Location: {{ currentMerchant.location }}</p>
-      <p class="merchant-contact">Contact: {{ currentMerchant.contactInfo }}</p>
-      <p class="merchant-hours">Business Hours: {{ currentMerchant.businessHours }}</p>
-      <p class="merchant-average">Average Price: ¥{{ currentMerchant.averagePrice }}</p>
-      <p class="merchant-style">Style: {{ currentMerchant.style.join(', ') }}</p>
-    </div> -->
+    <div class="info">
+      <h2 class="merchant-name">{{ currentDish.name }}</h2>
+      <p class="merchant-rating">评分: {{ currentDish.rating }}</p>
+      <p class="merchant-average">平均价格: ¥{{ currentDish.averagePrice }}</p>
+      <p class="merchant-style">风格: {{ currentDish.style.join(', ') }}</p>
+    </div>
 
     <div class="reviews-section">
       <h3>Reviews</h3>
