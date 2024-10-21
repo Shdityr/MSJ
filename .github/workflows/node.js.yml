@@ -32,7 +32,7 @@ jobs:
         cache-dependency-path: MeiShiJia-frontend/package-lock.json
 
     - name: Install dependencies
-      run: npm install
+      run: npm install --save-dev typescript
       working-directory: ./MeiShiJia-frontend
 
     - name: Run development server
