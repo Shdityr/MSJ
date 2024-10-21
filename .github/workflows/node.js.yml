@@ -1,6 +1,5 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
 name: Node.js CI
 
 on:
@@ -26,6 +25,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
-    - run: npm run dev
-    # - run: npm test
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./MeiShiJia-frontend
+
+    - name: Run development server
+      run: npm run dev
+      working-directory: ./MeiShiJia-frontend
+
+    # - name: Run tests
+    #   run: npm test
+    #   working-directory: ./subdir
