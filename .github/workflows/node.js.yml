@@ -36,7 +36,7 @@ jobs:
       working-directory: ./MeiShiJia-frontend
 
     - name: Run development server
-      run: npm run build
+      run: npm run dev
       working-directory: ./MeiShiJia-frontend
 
     # - name: Run tests
