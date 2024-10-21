@@ -36,4 +36,4 @@ jobs:
 
     # - name: Run tests
     #   run: npm test
-    #   working-directory: ./subdir
+    #   working-directory: ./MeiShiJia-frontend
