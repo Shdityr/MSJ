@@ -17,6 +17,10 @@ const selectDish = (merchantId, dishId) => {
   router.push({ name: 'dish', params: { merchantId: merchantId, dishId: dishId } })
 }
 
+function goBack() {
+  router.push({ name: 'windows'})
+}
+
 const fetchData = async () => {
   try {
     const response = await axios.get('http://localhost:8081/restaurants', {

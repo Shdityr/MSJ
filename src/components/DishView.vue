@@ -107,7 +107,7 @@ onMounted(() => {
       <h3>菜品</h3>
       <div class="dishes-container">
         <div
-          v-for="dish in sortedMenuDishes"
+          v-for="dish in Dishes"
           :key="dish.id"
           class="dish-item"
           @click="selectDish(currentMerchant.id, dish.id)"
@@ -131,7 +131,7 @@ onMounted(() => {
 
     <div class="reviews-section">
       <h3>Reviews</h3>
-      <div class="review-item" v-for="review in sortedReviews" :key="review.id">
+      <div class="review-item" v-for="review in Reviews" :key="review.id">
         <div class="review-header">
           <div class="review-header-left">
             <img :src="review.userAvatar" alt="用户头像" class="review-avatar" />

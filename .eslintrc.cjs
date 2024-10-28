@@ -21,5 +21,11 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
-  }
+  },
+  rules: {
+    'no-undef': 'off',
+    '@typescript-eslint/no-unsafe-member-access': ['error', { ignoreTypeReferences: true }],
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+  },
 }
