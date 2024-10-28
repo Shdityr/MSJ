@@ -34,6 +34,11 @@ jobs:
     - name: Install dependencies
       run: npm install --save-dev typescript
       working-directory: ./MeiShiJia-frontend
+      
+    - name: Compile TypeScript
+      run: npx tsc
+      working-directory: ./MeiShiJia-frontend
+
 
     - name: Run development server
       run: npm run dev
