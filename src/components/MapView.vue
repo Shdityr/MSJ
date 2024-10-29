@@ -68,7 +68,7 @@ function savePoint() {
   if (index !== -1) {
     points[index] = { ...currentPoint.value }
     // 更新地图上的标记内容
-    map.remove(marker) // 移除旧标记
+    // map.remove(marker) // 移除旧标记
     addMarker(points[index]) // 重新添加标记以更新内容
   }
   closeModal()
@@ -76,6 +76,10 @@ function savePoint() {
 
 function closeModal() {
   isModalVisible.value = false
+}
+
+function toggleAddMarker() {
+  canAddMarker.value = !canAddMarker.value; // 切换添加点的状态
 }
 
 onMounted(() => {
