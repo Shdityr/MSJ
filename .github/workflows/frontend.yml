@@ -46,6 +46,7 @@ jobs:
         host: ${{ secrets.ALIYUN_HOST }}
         username: ${{ secrets.ALIYUN_USERNAME }}
         key: ${{ secrets.ALIYUN_SSH_KEY }}
+        passphrase: ${{ secrets.ALIYUN_SSH_PASSPHRASE }}
         source: "dist/*"
         target: "/opt/app/frontend"
 
