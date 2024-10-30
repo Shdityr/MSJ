@@ -90,4 +90,4 @@ jobs:
           tar -xzf package.tar.gz
           ls -la
           npm install -g serve
-          serve -s ./dist -l 3000
+          nohup serve -s ./dist -l 3000 > serve.log 2>&1 &
