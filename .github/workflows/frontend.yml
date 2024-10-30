@@ -26,7 +26,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: ls -la ./dist
-    
+
     - name: Stop Old Application
       uses: appleboy/ssh-action@v0.1.1
       with:
@@ -38,6 +38,18 @@ jobs:
           pgrep node && pkill node || echo "No application running"
     
 
+    
+    - name: Clean Old Application
+      uses: appleboy/ssh-action@v0.1.1
+      with:
+        host: ${{ secrets.ALIYUN_HOST }}
+        username: ${{ secrets.ALIYUN_USERNAME }}
+        key: ${{ secrets.ALIYUN_SSH_KEY }}
+        passphrase: ${{ secrets.ALIYUN_SSH_PASSPHRASE }}
+        script: |
+          rm -rf /opt/app/frontend
+
+          
     - name: Check working directory
       run: pwd
 
