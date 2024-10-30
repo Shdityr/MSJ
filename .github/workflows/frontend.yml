@@ -41,7 +41,7 @@ jobs:
         script: |
           pgrep node && pkill node || echo "No application running"
 
-    - name: Deploy to Alibaba Cloud Server
+    - name: Deploy to Alibaba Cloud
       uses: appleboy/scp-action@v0.1.0
       with:
         host: ${{ secrets.ALIYUN_HOST }}
