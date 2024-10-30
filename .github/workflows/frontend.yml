@@ -87,7 +87,7 @@ jobs:
         passphrase: ${{ secrets.ALIYUN_SSH_PASSPHRASE }}
         script: |
           cd /opt/app/frontend
-          ls -la
           tar -xzf package.tar.gz
+          ls -la
           npm install
           npm start
