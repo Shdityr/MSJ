@@ -47,7 +47,7 @@ jobs:
       run: pwd
 
     - name: Check the content of the repository
-      run: ls -la
+      run: ls -la ./dist
       
 
     - name: List dist directory
