@@ -40,10 +40,13 @@ jobs:
         passphrase: ${{ secrets.ALIYUN_SSH_PASSPHRASE }}
         script: |
           pgrep node && pkill node || echo "No application running"
-
+    
+    - name: Check working directory
+      run: pwd
+      
     - name: List dist directory
       run: ls -la dist
-      
+
     - name: Deploy to Alibaba Cloud
       uses: appleboy/scp-action@v0.1.0
       with:
