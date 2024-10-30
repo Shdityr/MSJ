@@ -38,6 +38,7 @@ npm run build
 npm run test:unit
 ```
 
+
 ### Run End-to-End Tests with [Playwright](https://playwright.dev)
 
 ```sh
