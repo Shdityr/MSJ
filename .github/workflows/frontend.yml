@@ -37,6 +37,7 @@ jobs:
         host: ${{ secrets.ALIYUN_HOST }}
         username: ${{ secrets.ALIYUN_USERNAME }}
         key: ${{ secrets.ALIYUN_SSH_KEY }}
+        passphrase: ${{ secrets.ALIYUN_SSH_PASSPHRASE }}
         script: |
           pgrep node && pkill node || echo "No application running"
 
@@ -56,6 +57,7 @@ jobs:
         host: ${{ secrets.ALIYUN_HOST }}
         username: ${{ secrets.ALIYUN_USERNAME }}
         key: ${{ secrets.ALIYUN_SSH_KEY }}
+        passphrase: ${{ secrets.ALIYUN_SSH_PASSPHRASE }}
         script: |
           cd /opt/app/frontend
           npm install
