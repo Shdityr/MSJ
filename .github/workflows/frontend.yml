@@ -41,6 +41,10 @@ jobs:
         script: |
           pgrep node && pkill node || echo "No application running"
     
+
+    - name: Check working directory
+      run: pwd
+      
     - name: Check the content of the repository
       run: ls -la
       
