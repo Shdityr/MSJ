@@ -4,9 +4,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "frontend" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "frontend" ]
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [21.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -34,14 +34,10 @@ jobs:
     - name: Install dependencies
       run: npm install --save-dev typescript
       working-directory: ./MeiShiJia-frontend
-      
-    - name: Compile TypeScript
-      run: npx tsc
-      working-directory: ./MeiShiJia-frontend
 
 
-    - name: Run development server
-      run: npm run dev
+    - name: Run build
+      run: npm run build
       working-directory: ./MeiShiJia-frontend
 
     # - name: Run tests
