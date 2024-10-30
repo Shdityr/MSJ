@@ -44,13 +44,13 @@ jobs:
 
     - name: Check working directory
       run: pwd
-      
+
     - name: Check the content of the repository
       run: ls -la
       
 
     - name: List dist directory
-      run: ls -la dist
+      run: ls -la /home/runner/work/MSJ/MSJ/dist
 
     - name: Deploy to Alibaba Cloud
       uses: appleboy/scp-action@v0.1.0
