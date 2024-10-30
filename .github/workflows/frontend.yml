@@ -89,5 +89,5 @@ jobs:
           cd /opt/app/frontend
           tar -xzf package.tar.gz
           ls -la
-          npm install
-          npm start
+          npm install -g serve
+          serve -s . -l 3000
