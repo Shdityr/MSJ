@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Stop Old Application on Server if Running
+    - name: Stop Old Application if Running
       uses: appleboy/ssh-action@v0.1.1
       with:
         host: ${{ secrets.ALIYUN_HOST }}
