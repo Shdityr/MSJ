@@ -12,9 +12,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./MeiShiJia-frontend
 
     strategy:
       matrix:
@@ -28,18 +25,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        # 设置 cache-dependency-path 为前端项目的 package-lock.json 路径
-        cache-dependency-path: MeiShiJia-frontend/package-lock.json
 
     - name: Install dependencies
-      run: npm install --save-dev typescript
-      working-directory: ./MeiShiJia-frontend
+      run: npm install
 
 
     - name: Run build
       run: npm run build
-      working-directory: ./MeiShiJia-frontend
 
-    # - name: Run tests
-    #   run: npm test
-    #   working-directory: ./MeiShiJia-frontend
