@@ -50,7 +50,7 @@ jobs:
       
 
     - name: List dist directory
-      run: ls -la /home/runner/work/MSJ/MSJ/frontend/dist
+      run: ls -la /home/runner/work/MSJ/MSJ
 
     - name: Deploy to Alibaba Cloud
       uses: appleboy/scp-action@v0.1.0
