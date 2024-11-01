@@ -21,6 +21,15 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+    - name: Set up MySQL
+      uses: mysql/setup-mysql@v2
+      with:
+        mysql-version: '8.0'
+        port: '3306'
+        username: 'root'
+        password: 'Gbh123..'
+
     - name: Build with Maven
       run: mvn clean package --file pom.xml
 
