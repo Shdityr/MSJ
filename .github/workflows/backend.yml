@@ -77,5 +77,5 @@ jobs:
         key: ${{ secrets.ALIYUN_SSH_KEY }}
         passphrase: ${{ secrets.ALIYUN_SSH_PASSPHRASE }}
         script: |
-          cd /opt/app/backend
+          cd /opt/app/backend/target
           nohup java -jar *.jar > app.log 2>&1 &
