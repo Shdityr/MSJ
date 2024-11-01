@@ -26,6 +26,7 @@ jobs:
       uses: mirromutth/mysql-action@v1.1
       with:
         mysql version: '8.0'
+        mysql database: 'db_main'
         mysql root password: 'Gbh123..'
 
     - name: Build with Maven
