@@ -10,7 +10,7 @@ const fetchMerchants = async () => {
   try {
     const response = await axios.get('http://localhost:8081/Home')
     merchants.value = response.data
-    console.log(merchants)
+    console.log(merchants.value)
   } catch (error) {
     console.error('Error fetching merchants:', error)
   }
