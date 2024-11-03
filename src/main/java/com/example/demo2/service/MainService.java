@@ -38,7 +38,11 @@ public class MainService {
     @Autowired
     ImageRepository ImageRepository;
 
-
+    public void func1(){
+        RestaurantEntity shop = RestaurantRepository.findById(1).get();
+        shop.setImages("2");
+        RestaurantRepository.save(shop);
+    }
     public void test1(){
         int i1=1;
         RestaurantEntity shop = RestaurantRepository.findById(i1).get();
