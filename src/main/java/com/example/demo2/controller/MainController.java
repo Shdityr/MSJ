@@ -14,6 +14,7 @@ import java.util.List;
 @RestController  //表明这是一个控制器类
 //@RequestMapping("/index")   //处理 /article 路径下的请求
 // @CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://121.40.208.74:3000" )
 public class MainController {
     @Autowired  //将 ArticleService 服务注入到控制器中，用于处理文章相关的逻辑。
     MainService mainService;
