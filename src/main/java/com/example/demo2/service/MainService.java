@@ -37,7 +37,15 @@ public class MainService {
 
     @Autowired
     ImageRepository ImageRepository;
-
+    public String func2(){
+        List<ImageEntity> is=ImageRepository.findAll();
+        String s="";
+        int n=is.size();
+        for(int i=0;i<n;i++){
+            s+=String.valueOf(is.get(i).getId())+";";
+        }
+        return s;
+    }
     public void func1(){
         // ImageRepository.deleteAll();
         RestaurantEntity shop = RestaurantRepository.findById(1).get();
