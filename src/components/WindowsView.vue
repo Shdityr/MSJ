@@ -10,21 +10,21 @@ const fetchMerchants = async () => {
   try {
     const response = await axios.get('http://121.40.208.74:8081/Home')
     merchants.value = response.data
-    // merchants.value.forEach(merchant => {
-    //   if (merchant.images) {
-    //     console.log(merchant.images)
-    //     const byteCharacters = atob(merchant.images); // 将 base64 字符串转换为字节
-    //     const byteNumbers = new Uint8Array(byteCharacters.length);
+    merchants.value.forEach(merchant => {
+      if (merchant.images) {
+        console.log(merchant.images)
+        const byteCharacters = atob(merchant.images); // 将 base64 字符串转换为字节
+        const byteNumbers = new Uint8Array(byteCharacters.length);
         
-    //     for (let i = 0; i < byteCharacters.length; i++) {
-    //       byteNumbers[i] = byteCharacters.charCodeAt(i);
-    //     }
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
         
-    //     const blob = new Blob([byteNumbers], { type: 'image/jpeg' }); // 根据实际情况调整 MIME 类型
-    //     merchant.imageUrl = URL.createObjectURL(blob); // 生成 URL
-    //     console.log(merchant.imageUrl)
-    //   }
-    // });
+        const blob = new Blob([byteNumbers], { type: 'image/jpeg' }); // 根据实际情况调整 MIME 类型
+        merchant.imageUrl = URL.createObjectURL(blob); // 生成 URL
+        console.log(merchant.imageUrl)
+      }
+    });
     console.log(merchants.value)
   } catch (error) {
     console.error('Error fetching merchants:', error)
@@ -48,7 +48,7 @@ const selectMerchant = (merchantId) => {
       class="merchant-item"
       @click="selectMerchant(merchant.id)"
     >
-      <img :src="merchant.images[0]" alt="商家图片" class="merchant-image" />
+      <img :src="merchant.imageUrl" alt="商家图片" class="merchant-image" />
       <div class="merchant-info">
         <h3 class="merchant-name">{{ merchant.name }}</h3>
         <p class="merchant-rating">
