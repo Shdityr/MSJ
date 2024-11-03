@@ -47,9 +47,6 @@ jobs:
         script: |
           rm -rf /opt/app/frontend
 
-    - name: Check working directory
-      run: pwd
-
     - name: Check the content of the repository
       run: ls -la ./dist
 
@@ -91,3 +88,5 @@ jobs:
           ls -la
           npm install -g serve
           nohup serve -s dist -l 3000 > serve.log 2>&1 &
+
+
