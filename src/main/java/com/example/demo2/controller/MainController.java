@@ -45,7 +45,7 @@ public class MainController {
 //        }
 //    }
     @RequestMapping("/222")
-    public String printImageBytes()throws IOException {
+    public String printImage111()throws IOException {
         // 返回打印信息作为API的响应
         return "Image bytes printed to the console";
     }
