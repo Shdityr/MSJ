@@ -243,10 +243,11 @@ public class MainService {
     }
 
     public void insertImage() throws IOException {
-        ClassPathResource imgFile = new ClassPathResource("./drawing-7502248_640.jpg");
+        //ClassPathResource imgFile = new ClassPathResource("./drawing-7502248_640.jpg");
 
         // 将图片文件读为字节数组
-        byte[] imageBytes = Files.readAllBytes(imgFile.getFile().toPath());
+        //byte[] imageBytes = Files.readAllBytes(imgFile.getFile().toPath());
+        byte[] imageBytes = {10, 20, 30, 40};
         ImageEntity image=new ImageEntity("zsh",imageBytes);
         ImageRepository.save(image);
 
