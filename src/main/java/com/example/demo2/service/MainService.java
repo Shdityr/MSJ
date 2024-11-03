@@ -39,10 +39,10 @@ public class MainService {
     ImageRepository ImageRepository;
 
     public void func1(){
-        ImageRepository.deleteAll();
-        // RestaurantEntity shop = RestaurantRepository.findById(1).get();
-        // shop.setImages("3");
-        // RestaurantRepository.save(shop);
+        // ImageRepository.deleteAll();
+        RestaurantEntity shop = RestaurantRepository.findById(1).get();
+        shop.setImages("1");
+        RestaurantRepository.save(shop);
     }
     public void test1(){
         int i1=1;
