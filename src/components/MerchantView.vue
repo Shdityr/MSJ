@@ -42,7 +42,7 @@ const fetchData = async () => {
     for (let i = 0; i < DishIds.length; i++) {
       const DishId = DishIds[i]
 
-      const response = await axios.get('http://localhost:8081/dishes', {
+      const response = await axios.get('http://121.40.208.74:8081/dishes', {
         params: {
           DishesId: DishId,
           DishesSorted: 1
@@ -62,7 +62,7 @@ const fetchData = async () => {
     for (let i = 0; i < reviewIds.length; i++) {
       const reviewId = reviewIds[i]
 
-      const response = await axios.get('http://localhost:8081/reviews', {
+      const response = await axios.get('http://121.40.208.74:8081/reviews', {
         params: {
           ReviewId: reviewId
         }
