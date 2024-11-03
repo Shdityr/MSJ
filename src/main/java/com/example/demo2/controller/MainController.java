@@ -44,7 +44,11 @@ public class MainController {
 //            return new RespBean("failure", "0",value);
 //        }
 //    }
-
+    @RequestMapping("/222")
+    public String printImageBytes()throws IOException {
+        // 返回打印信息作为API的响应
+        return "Image bytes printed to the console";
+    }
 
     //@RequestMapping(value = "/Home")
     @RequestMapping("/111")
