@@ -40,7 +40,7 @@ public class MainService {
 
     public void func1(){
         RestaurantEntity shop = RestaurantRepository.findById(1).get();
-        shop.setImages("1");
+        shop.setImages("2");
         RestaurantRepository.save(shop);
     }
     public void test1(){
