@@ -38,7 +38,9 @@ public class RestaurantEntity {
     private List<ReviewEntity> reviewList;
 
 
-
+    public void setImages(String a){
+        images=a;
+    }
 
     public int getId(){return id;}
     public String getName(){return name;}
