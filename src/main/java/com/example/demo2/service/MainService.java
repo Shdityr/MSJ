@@ -21,7 +21,7 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import java.io.InputStream;
 @Service
 @Transactional
 public class MainService {
@@ -243,11 +243,11 @@ public class MainService {
     }
 
     public void insertImage() throws IOException {
-        ClassPathResource imgFile = new ClassPathResource("./drawing-7502248_640.jpg");
+        ClassPathResource imgFile = new ClassPathResource("drawing-7502248_640.jpg");
 
-        // 将图片文件读为字节数组
-        //byte[] imageBytes = Files.readAllBytes(imgFile.getFile().toPath());
-        byte[] imageBytes = {10, 20, 30, 40};
+        // 使用 InputStream 读取图片文件为字节数组
+        InputStream inputStream = imgFile.getInputStream();
+        byte[] imageBytes = inputStream.readAllBytes();
         ImageEntity image=new ImageEntity("zsh",imageBytes);
         ImageRepository.save(image);
 
