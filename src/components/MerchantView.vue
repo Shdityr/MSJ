@@ -23,7 +23,7 @@ function goBack() {
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://localhost:8081/restaurants', {
+    const response = await axios.get('http://121.40.208.74:8081/restaurants', {
       params: {
         RestaurantId: merchantId,
         ReviewsSorted: 1,
