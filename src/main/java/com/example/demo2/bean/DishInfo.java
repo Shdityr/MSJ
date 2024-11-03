@@ -5,7 +5,7 @@ import jakarta.persistence.Column;
 
 public class DishInfo {
     public int id;
-    public List<String> images;
+    public List<byte[]> images;
     public String name;
     public String store;
     public float rating;
@@ -14,7 +14,7 @@ public class DishInfo {
     public List<String> Style;
     public List<Integer> reviewsId;
     public DishInfo(int id,
-                    List<String> images,
+                    List<byte[]> images,
                       String name,
                       String store,
                       float rating,

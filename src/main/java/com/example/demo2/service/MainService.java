@@ -9,12 +9,15 @@ import com.example.demo2.bean.RestaurantInfo_All;
 import com.example.demo2.bean.ReviewInfo;
 import com.example.demo2.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo2.repository.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +34,9 @@ public class MainService {
 
     @Autowired
     ReviewRepository ReviewRepository;
+
+    @Autowired
+    ImageRepository ImageRepository;
 
 
     public void test1(){
@@ -97,7 +103,7 @@ public class MainService {
         float rating;
         float averagePrice;
         String location;
-        List<String> images = new ArrayList<String>();;
+        List<byte[]> images = new ArrayList<>();;
 
         String businessHours;
 
@@ -130,10 +136,10 @@ public class MainService {
         float rating = restaurant.getRating();
         float averagePrice = restaurant.getAveragePrice();
         String location = restaurant.getLocation();
-        List<String> images = new ArrayList<String>(images_convert(restaurant.getImages()));
+        List<byte[]> images = images_convert(restaurant.getImages());
         String contactInfo = restaurant.getContactinfo();
 
-        List<String> Style = new ArrayList<String>(style_convert(restaurant.getImages()));
+        List<String> Style = new ArrayList<String>(style_convert(restaurant.getStyle()));
         float location_x = restaurant.getLocation_x();
         float location_y = restaurant.getLocation_y();
 //        List<Integer> reviewsId =new ArrayList<>();
@@ -185,7 +191,7 @@ public class MainService {
         DishEntity dish = DishRepository.findById(DishesId).get();
 
         int id=dish.getId();
-        List<String> images=images_convert(dish.getImages());
+        List<byte[]> images=images_convert(dish.getImages());
         String name=dish.getName();
         String store= dish.getStore();
         float rating=dish.getRating();
@@ -221,7 +227,7 @@ public class MainService {
         int userID=review.getUserID();
         String contents=review.getContent();
         float averagePrice=review.getAveragePrice();
-        List<String> images=images_convert(review.getImages());
+        List<byte[]> images=images_convert(review.getImages());
         float rating=review.getRating();
         List<String> Style=style_convert(review.getStyle());
         ReviewInfo ret=new ReviewInfo(id,userID,contents,averagePrice,images,rating,Style);
@@ -230,11 +236,33 @@ public class MainService {
 
     }
 
-    private List<String> images_convert(String s) {
 
-        String[] parts = s.split(";;");
-        // 将数组转换为 List 并返回
-        return Arrays.asList(parts);
+    public byte[] getImagebyid(int Id) {
+        ImageEntity image = ImageRepository.findById(Id).get();
+        return image.getData();
+    }
+
+    public void insertImage() throws IOException {
+        ClassPathResource imgFile = new ClassPathResource("./drawing-7502248_640.jpg");
+
+        // 将图片文件读为字节数组
+        byte[] imageBytes = Files.readAllBytes(imgFile.getFile().toPath());
+        ImageEntity image=new ImageEntity("zsh",imageBytes);
+        ImageRepository.save(image);
+
+    }
+
+
+    private List<byte[]> images_convert(List<Integer> s) {
+        List<byte[]> ret=new ArrayList<>();
+        int n=s.size();
+        for(int i=0;i<n;i++){
+            ImageEntity image=ImageRepository.findById(s.get(i)).get();
+            ret.add(image.getData());
+
+        }
+        return ret;
+
 
     }
     private List<String> style_convert(String s) {

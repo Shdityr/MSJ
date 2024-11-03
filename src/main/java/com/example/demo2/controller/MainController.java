@@ -6,15 +6,21 @@ import com.example.demo2.bean.*;
 import com.example.demo2.entity.RestaurantEntity;
 import com.example.demo2.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController  //表明这是一个控制器类
 //@RequestMapping("/index")   //处理 /article 路径下的请求
-// @CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "http://121.40.208.74:3000" )
+@CrossOrigin(origins = "http://localhost:5173")
 public class MainController {
     @Autowired  //将 ArticleService 服务注入到控制器中，用于处理文章相关的逻辑。
     MainService mainService;
@@ -41,6 +47,55 @@ public class MainController {
 
 
     //@RequestMapping(value = "/Home")
+    @RequestMapping("/111")
+    public String printImageBytes()throws IOException {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        mainService.insertImage();
+//        // 使用 ClassPathResource 加载图片文件 (可以放在 resources 文件夹)
+//        ClassPathResource imgFile = new ClassPathResource("./drawing-7502248_640.jpg");
+//
+//        // 将图片文件读为字节数组
+//        byte[] imageBytes = Files.readAllBytes(imgFile.getFile().toPath());
+//
+//        // 打印字节数组到控制台
+//        for (byte b : imageBytes) {
+//            System.out.print(b);
+//        }
+
+        // 返回打印信息作为API的响应
+        return "Image bytes printed to the console";
+    }
+    private static BufferedImage convertBytesToImage(byte[] imageBytes) {
+        BufferedImage image = null;
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes)) {
+            image = ImageIO.read(bais);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
+    private static void saveImage(BufferedImage image, String path) {
+        try {
+            ImageIO.write(image, "png", new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/image")  //将处理POST请求的URL映射到 addNewArticle 方法上。@RequestBody int id
+    public @ResponseBody byte[] getImagebyid()throws IOException {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+//        ClassPathResource imgFile = new ClassPathResource("./drawing-7502248_640.jpg");
+//        byte[] ret = Files.readAllBytes(imgFile.getFile().toPath());
+//        BufferedImage image = convertBytesToImage(ret);
+//        saveImage(image, "output.png");
+        byte[] ret=mainService.getImagebyid(1);
+        BufferedImage image = convertBytesToImage(ret);
+        saveImage(image, "output1111.png");
+        return ret;
+    }
     @RequestMapping(value = "/Home", method = RequestMethod.GET)  //将处理POST请求的URL映射到 addNewArticle 方法上。@RequestBody int id
     public @ResponseBody List<RestaurantInfo> getAllRestaurantInfo() {
         System.out.println("---------------------------------");

@@ -8,12 +8,12 @@ public class RestaurantInfo {
 
     public float averagePrice;
     public String location;
-    public List<String> images;
+    public List<byte[]> images;
 
     public String businessHours;
     public float location_x;
     public float location_y;
-    public RestaurantInfo(int id,String name,float rating,float averagePrice,String location,List<String> images,String businessHours,float location_x,float location_y){
+    public RestaurantInfo(int id,String name,float rating,float averagePrice,String location,List<byte[]> images,String businessHours,float location_x,float location_y){
         this.id=id;
         this.name=name;
         this.rating=rating;

@@ -3,8 +3,9 @@ package com.example.demo2.repository;
 
 
 
-import com.example.demo2.entity.RestaurantEntity;
 
+
+import com.example.demo2.entity.ImageEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 //import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @author pan_junbiao
  **/
 @Repository
-public interface RestaurantRepository extends JpaRepository<RestaurantEntity, Integer>
+public interface ImageRepository extends JpaRepository<ImageEntity, Integer>
 {
 
 }

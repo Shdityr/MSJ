@@ -3,9 +3,12 @@ package com.example.demo2.entity;
 import jakarta.persistence.*;
         import com.example.demo2.entity.RestaurantEntity;
 import com.example.demo2.entity.ReviewEntity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import jakarta.persistence.*;
-
+import java.util.List;
 
 
 @Entity
@@ -14,6 +17,7 @@ public class DishEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private String images;
     private String name;
     private String store;
@@ -39,7 +43,17 @@ public class DishEntity {
 
 
     public int getId(){return id;}
-    public String getImages(){return images;}
+    public List<Integer> getImages(){
+        List<Integer> ret=new ArrayList<>();
+        String[] parts = images.split(";;");
+        for (String part : parts) {
+            if (!part.isEmpty()) { // 检查是否为空字符串
+                ret.add(Integer.valueOf(part)); // 将字符串转换为 Integer
+            }
+        }
+        // 将数组转换为 List 并返回
+        return ret;
+    }
     public String getName(){return name;}
     public String getStore(){return store;}
     public float getRating(){return rating;}

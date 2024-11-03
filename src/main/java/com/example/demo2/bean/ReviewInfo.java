@@ -6,11 +6,11 @@ public class ReviewInfo {
     public int userID;
     public String contents;
     public float averagePrice;
-    public List<String> images;
+    public List<byte[]> images;
     public float rating;
     public List<String> Style;
 
-    public ReviewInfo(int id,int userID,String contents,float averagePrice,List<String> images,float rating,List<String> Style){
+    public ReviewInfo(int id,int userID,String contents,float averagePrice,List<byte[]> images,float rating,List<String> Style){
         this.id=id;
         this.userID=userID;
         this.contents=contents;

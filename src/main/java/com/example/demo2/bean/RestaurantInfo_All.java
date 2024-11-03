@@ -10,7 +10,7 @@ public class RestaurantInfo_All {
 
     public float averagePrice;
     public String location;
-    public List<String> images;
+    public List<byte[]> images;
 
     public String businessHours;
 
@@ -21,7 +21,7 @@ public class RestaurantInfo_All {
 
     public float location_x;
     public float location_y;
-    public RestaurantInfo_All(int id,String name,float rating,float averagePrice,String location,List<String> images,String businessHours,String contactInfo,List<Integer> reviewsId,
+    public RestaurantInfo_All(int id,String name,float rating,float averagePrice,String location,List<byte[]> images,String businessHours,String contactInfo,List<Integer> reviewsId,
     List<String> Style,List<Integer>DishesId,float location_x,float location_y){
         this.id=id;
         this.name=name;
