@@ -44,6 +44,12 @@ public class MainController {
 //            return new RespBean("failure", "0",value);
 //        }
 //    }
+
+    @RequestMapping("/333")
+    public String printImage11122222()throws IOException {
+        // 返回打印信息作为API的响应
+              return  mainService.func2();
+    }
     @RequestMapping("/222")
     public String printImage111()throws IOException {
         // 返回打印信息作为API的响应
