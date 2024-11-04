@@ -18,3 +18,6 @@ mvn spring-boot:run
 mvn clean package  
 生成target文件夹，里面有一个后缀jar的文件  
 java -jar xxx.jar  
+
+test test
+
