@@ -18,7 +18,7 @@ const selectDish = (merchantId, dishId) => {
 }
 
 function goBack() {
-  router.push({ name: 'windows'})
+  router.push({ name: 'Home'})
 }
 
 const fetchData = async () => {
