@@ -38,9 +38,31 @@ public class RestaurantEntity {
     private List<ReviewEntity> reviewList;
 
 
-    public void setImages(String a){
+    // public void setImages(String a){
+    //     images=a;
+    // }
+            public void setImages(String a){
         images=a;
     }
+
+
+
+    public void setId(int a){id=a;}
+    public void setName(String a){name=a;}
+    public void setLocation(String a){location=a;}
+    public void setStyle(String a){style=a;}
+    public void setBusinessHours(String a){ businessHours=a;}
+    public void setContactinfo(String a){ contactinfo=a;}
+    public void setRating(float a){ rating=a;}
+    public void setLocation_x(float a){
+        location_x=a;
+    }
+    public void setLocation_y(float a){
+        location_y=a;
+    }
+    public void setAveragePrice(float a){ averagePrice=a;}
+    public void setDishList(List<DishEntity> a){ dishList=a;}
+    public void setReviewList(List<ReviewEntity> a){ reviewList=a;}
 
     public int getId(){return id;}
     public String getName(){return name;}
