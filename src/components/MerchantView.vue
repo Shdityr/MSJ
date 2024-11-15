@@ -146,13 +146,13 @@ onMounted(() => {
         <h3>Reviews</h3>
         <div class="review-item" v-for="review in Reviews" :key="review.id">
           <div class="review-header">
-            <div class="review-header-left">
+            <!-- <div class="review-header-left">
               <img :src="review.userAvatar" alt="用户头像" class="review-avatar" />
               <div class="review-info">
                 <h4 class="review-username">{{ review.userName }}</h4>
                 <p class="review-time">{{ review.time }}</p>
               </div>
-            </div>
+            </div> -->
             <!-- 将 rating 显示在右上角 -->
             <div class="review-rating">{{ review.rating }} ★</div>
           </div>
