@@ -52,15 +52,20 @@ const fetchData = async () => {
           DishesSorted: 1
         }
       })
+      console.log(1);
       const dish = ref<Dish>(null);
+      console.log(2);
       dish.value = response.data;
+      console.log(3);
       dish.value.images.forEach((image, index) => {
         dish.value.images[index] = convertBase64ToImageUrl(image);
       });
-      Dishes.value.push(dish.value)
+      console.log(4);
+      Dishes.value.push(dish.value);
+      console.log(5);
     }
   } catch (error) {
-    console.error('获取菜品信息失败:', error)
+    console.error('获取菜品信息失败:', error);
   }
 
   try {
@@ -82,7 +87,7 @@ const fetchData = async () => {
       Reviews.value.push(review.value);
     }
   } catch (error) {
-    console.error('获取回复信息失败:', error)
+    console.error('获取回复信息失败:', error);
   }
 }
 
