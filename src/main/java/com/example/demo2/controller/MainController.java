@@ -44,7 +44,19 @@ public class MainController {
 //            return new RespBean("failure", "0",value);
 //        }
 //    }
+    @RequestMapping("/1115")
+    public String printImage1115()throws IOException {
+        // 返回打印信息作为API的响应
+        mainService.func3();
+        return "1115-Image bytes printed to the console";
+    }
 
+    @RequestMapping("/1116")
+    public String printImage1116()throws IOException {
+        // 返回打印信息作为API的响应
+        mainService.func6();
+        return "1116-Image bytes printed to the console";
+    }
     @RequestMapping("/333")
     public String printImage11122222()throws IOException {
         // 返回打印信息作为API的响应
