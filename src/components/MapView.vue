@@ -96,7 +96,7 @@ function closeModal() {
 }
 
 function toggleAddMarker() {
-  canAddMarker.value = !canAddMarker.value; // 切换添加点的状态
+  canAddMarker.value = !canAddMarker.value // 切换添加点的状态
 }
 
 onMounted(() => {
