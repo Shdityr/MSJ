@@ -3,19 +3,21 @@
 import { computed, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
+import type { Merchant, Review, Dish } from './datatype'
+import { convertBase64ToImageUrl } from './Utils';
 
-// 获取路由信息和路由器实例
 const route = useRoute()
 const router = useRouter()
 
 const merchantId = route.params.merchantId
-const currentMerchant = ref(null)
+const currentMerchant = ref<Merchant>(null)
+
 const dishId = route.params.dishId
-const Reviews = ref([])
-const Dishes = ref([])
+const Dishes = ref<Dish[]>([])
+const Reviews = ref<Review[]>([])
 
 const currentDish = computed(() => {
-  return Dishes.value.find((dish) => dish.id === dishId)
+  return Dishes.value.find((dish) => String(dish.id) === dishId)
 })
 
 function goBack(merchantId) {
@@ -36,6 +38,9 @@ const fetchData = async () => {
       }
     })
     currentMerchant.value = response.data
+    currentMerchant.value.images.forEach((image, index) => {
+      currentMerchant.value.images[index] = convertBase64ToImageUrl(image);
+    });
   } catch (error) {
     console.error('获取商家信息失败:', error)
   }
@@ -49,14 +54,18 @@ const fetchData = async () => {
       const response = await axios.get('http://121.40.208.74:8081/dishes', {
         params: {
           DishesId: DishId,
-          DishesSorted: 1
+          ReviewsSorted: 1
         }
       })
-
-      Dishes.value.push(response.data)
+      const dish = ref<Dish>(null);
+      dish.value = response.data;
+      dish.value.images.forEach((image, index) => {
+        dish.value.images[index] = convertBase64ToImageUrl(image);
+      });
+      Dishes.value.push(dish.value);
     }
   } catch (error) {
-    console.error('获取菜品信息失败:', error)
+    console.error('获取菜品信息失败:', error);
   }
 
   try {
@@ -70,11 +79,15 @@ const fetchData = async () => {
           ReviewId: reviewId
         }
       })
-
-      Reviews.value.push(response.data)
+      const review = ref<Review>(null);
+      review.value = response.data;
+      review.value.images.forEach((image, index) => {
+        review.value.images[index] = convertBase64ToImageUrl(image);
+      });
+      Reviews.value.push(review.value);
     }
   } catch (error) {
-    console.error('获取回复信息失败:', error)
+    console.error('获取回复信息失败:', error);
   }
 }
 
@@ -112,7 +125,7 @@ onMounted(() => {
           class="dish-item"
           @click="selectDish(currentMerchant.id, dish.id)"
         >
-          <img :src="dish.image" alt="菜品图片" class="dish-image" />
+          <img :src="dish.images[0]" alt="菜品图片" class="dish-image" />
           <div class="dish-info">
             <h4 class="dish-name">{{ dish.name }}</h4>
             <p class="dish-rating">{{ dish.rating }}分</p>
@@ -126,24 +139,24 @@ onMounted(() => {
       <h2 class="merchant-name">{{ currentDish.name }}</h2>
       <p class="merchant-rating">评分: {{ currentDish.rating }}</p>
       <p class="merchant-average">平均价格: ¥{{ currentDish.averagePrice }}</p>
-      <p class="merchant-style">风格: {{ currentDish.style.join(', ') }}</p>
+      <p class="merchant-style">风格: {{ currentDish.Style.join(', ') }}</p>
     </div>
 
     <div class="reviews-section">
       <h3>Reviews</h3>
       <div class="review-item" v-for="review in Reviews" :key="review.id">
         <div class="review-header">
-          <div class="review-header-left">
+          <!-- <div class="review-header-left">
             <img :src="review.userAvatar" alt="用户头像" class="review-avatar" />
             <div class="review-info">
               <h4 class="review-username">{{ review.userName }}</h4>
               <p class="review-time">{{ review.time }}</p>
             </div>
-          </div>
+          </div> -->
           <!-- 将 rating 显示在右上角 -->
           <div class="review-rating">{{ review.rating }} ★</div>
         </div>
-        <p class="review-content">{{ review.content }}</p>
+        <p class="review-content">{{ review.contents }}</p>
         <div v-if="review.images.length > 0" class="review-images">
           <img
             v-for="(image, index) in review.images.slice(0, 3)"

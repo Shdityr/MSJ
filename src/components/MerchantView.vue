@@ -49,20 +49,15 @@ const fetchData = async () => {
       const response = await axios.get('http://121.40.208.74:8081/dishes', {
         params: {
           DishesId: DishId,
-          DishesSorted: 1
+          ReviewsSorted: 1
         }
       })
-      console.log(1);
       const dish = ref<Dish>(null);
-      console.log(2);
       dish.value = response.data;
-      console.log(3);
       dish.value.images.forEach((image, index) => {
         dish.value.images[index] = convertBase64ToImageUrl(image);
       });
-      console.log(4);
       Dishes.value.push(dish.value);
-      console.log(5);
     }
   } catch (error) {
     console.error('获取菜品信息失败:', error);
