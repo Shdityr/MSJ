@@ -37,6 +37,49 @@ public class MainService {
 
     @Autowired
     ImageRepository ImageRepository;
+        public void func3(){
+        RestaurantEntity shop = RestaurantRepository.findById(1).get();
+        shop.setLocation_x((float)0.364325);
+        shop.setLocation_y((float)0.535764);
+        RestaurantRepository.save(shop);
+    }
+
+    public void func6(){
+        RestaurantEntity shop0 = RestaurantRepository.findById(1).get();
+        RestaurantEntity shop1 = new RestaurantEntity();
+        shop1.setName("麦当劳");
+        shop1.setImages("352");
+        shop1.setLocation_x((float)0.365000);
+        shop1.setLocation_y((float)0.536000);
+        shop1.setAveragePrice(shop0.getAveragePrice());
+        shop1.setContactinfo(shop0.getContactinfo());
+        shop1.setId(2);
+        shop1.setBusinessHours("9:00:20:00");
+        shop1.setDishList(shop0.getDishList());
+        shop1.setLocation(shop0.getLocation());
+        shop1.setReviewList(shop0.getReviewList());
+        shop1.setRating(shop0.getRating());
+        shop1.setStyle(shop0.getStyle());
+        RestaurantRepository.save(shop1);
+
+        RestaurantEntity shop2 = new RestaurantEntity();
+        shop2.setName("华莱士");
+        shop2.setImages("352");
+        shop2.setLocation_x((float)0.364000);
+        shop2.setLocation_y((float)0.534000);
+//        shop2.setLocation_x((float)0.36432501897332);
+//        shop2.setLocation_y((float)0.535764663035046);
+        shop2.setAveragePrice(shop0.getAveragePrice());
+        shop2.setContactinfo(shop0.getContactinfo());
+        shop2.setId(3);
+        shop2.setBusinessHours("13:00:22:00");
+        shop2.setDishList(shop0.getDishList());
+        shop2.setLocation(shop0.getLocation());
+        shop2.setReviewList(shop0.getReviewList());
+        shop2.setRating(shop0.getRating());
+        shop2.setStyle(shop0.getStyle());
+        RestaurantRepository.save(shop2);
+    }
     public String func2(){
         List<ImageEntity> is=ImageRepository.findAll();
         String s="";
