@@ -28,6 +28,23 @@ const canAddMarker = ref(false)
 const isModalVisible = ref(false)
 const currentPoint = ref({ name: '', image: '', position: [] })
 
+
+
+const fetchMerchants = async () => {
+  try {
+    const response = await axios.get('http://localhost:8081/Home')
+    merchants.value = response.data
+    console.log(merchants)
+  } catch (error) {
+    console.error('Error fetching merchants:', error)
+  }
+}
+
+onMounted(() => {
+  fetchMerchants()
+})
+
+
 const points = [
   {
     name: '点1',
