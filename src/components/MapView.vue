@@ -20,7 +20,12 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import AMapLoader from '@amap/amap-jsapi-loader'
+import AMapLoader from '@amap/amap-jsapi-loader' //Gaode api
+
+import { useRouter } from 'vue-router'
+import axios from 'axios'
+const router = useRouter()
+const merchants = ref([])
 
 let map = null
 let AMap = null
@@ -32,9 +37,24 @@ const currentPoint = ref({ name: '', image: '', position: [] })
 
 const fetchMerchants = async () => {
   try {
-    const response = await axios.get('http://localhost:8081/Home')
+    const response = await axios.get('http://121.40.208.74:8081/Home')
     merchants.value = response.data
-    console.log(merchants)
+    merchants.value.forEach(merchant => {
+      if (merchant.images) {
+        console.log(merchant.images)
+        const byteCharacters = atob(merchant.images); // 将 base64 字符串转换为字节
+        const byteNumbers = new Uint8Array(byteCharacters.length);
+        
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        
+        const blob = new Blob([byteNumbers], { type: 'image/jpeg' }); // 根据实际情况调整 MIME 类型
+        merchant.imageUrl = URL.createObjectURL(blob); // 生成 URL
+        console.log(merchant.imageUrl)
+      }
+    });
+    console.log(merchants.value)
   } catch (error) {
     console.error('Error fetching merchants:', error)
   }
