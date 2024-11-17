@@ -79,6 +79,22 @@ public class MainService {
         shop2.setRating(shop0.getRating());
         shop2.setStyle(shop0.getStyle());
         RestaurantRepository.save(shop2);
+
+        RestaurantEntity shop3 = new RestaurantEntity();
+        shop3.setName("汉堡王");
+        shop3.setImages("352");
+        shop3.setLocation_x((float)0.363000);
+        shop3.setLocation_y((float)0.532000);
+        shop3.setAveragePrice(shop0.getAveragePrice());
+        shop3.setContactinfo(shop0.getContactinfo());
+        shop3.setId(4);
+        shop3.setBusinessHours("17:00:24:00");
+        shop3.setDishList(shop0.getDishList());
+        shop3.setLocation(shop0.getLocation());
+        shop3.setReviewList(shop0.getReviewList());
+        shop3.setRating(shop0.getRating());
+        shop3.setStyle(shop0.getStyle());
+        RestaurantRepository.save(shop3);
     }
     public String func2(){
         List<ImageEntity> is=ImageRepository.findAll();
