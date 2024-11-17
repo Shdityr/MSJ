@@ -45,9 +45,9 @@ const fetchData = async () => {
   // }
 
   try {
-    const DishIds = currentMerchant.value.DishesId
+    // const DishIds = currentMerchant.value.DishesId
 
-    for (let i = 0; i < DishIds.length; i++) {
+    for (let i = 0; i < 1; i++) {
       const DishId = 101
       console.log(DishId);
       const response = await axios.get('http://121.40.208.74:8081/dishes', {
