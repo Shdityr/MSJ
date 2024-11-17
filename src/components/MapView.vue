@@ -85,7 +85,7 @@ function findNearestMerchant(clickedPosition) {
             clickedPosition.getLng(),clickedPosition.getLat(), 
             merchant.location_x + 114, merchant.location_y + 30
         );
-        if (distance < minDistance) {
+        if (distance < minDistance && distance < 30) {
             minDistance = distance;
             nearestMerchant = merchant;
         }
@@ -95,9 +95,12 @@ function findNearestMerchant(clickedPosition) {
 
 function showInfoClick(e) {
     let clickedPosition = e.lnglat;
-    let nearestMerchant = findNearestMerchant(clickedPosition);
-    selectMerchant(nearestMerchant.id)
-    console.log(nearestMerchant.id);
+    let nearestMerchant = null;
+    nearestMerchant = findNearestMerchant(clickedPosition);
+    if(nearestMerchant) {
+      selectMerchant(nearestMerchant.id);
+      console.log(nearestMerchant.id);
+    }
 }
 
 onMounted(() => {
