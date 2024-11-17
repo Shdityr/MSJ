@@ -66,6 +66,7 @@ const addMarker = (merchant) => {
   const marker = new AMap.Marker({
     position: new AMap.LngLat(114 + merchant.location_x, 30 + merchant.location_y), // 使用商家的经纬度
     title: merchant.name, // 可选：设置商家名称作为提示
+    
   });
 
   // 添加自定义内容（如图片）
@@ -79,6 +80,7 @@ const addMarker = (merchant) => {
   // }
 
   marker.setMap(map); // 将标记添加到地图上
+  console.log(`Added marker for ${merchant.name} at ${merchant.location_x}, ${merchant.location_y}`)
 };
 
 onMounted(() => {
