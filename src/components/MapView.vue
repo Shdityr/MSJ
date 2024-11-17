@@ -65,13 +65,25 @@ const selectMerchant = (merchantId) => {
   router.push({ name: 'merchant', params: { merchantId: merchantId } })
 }
 
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 6371; // 地球半径，单位为公里
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c * 1000; // 返回单位为米的距离
+}
+
 function findNearestMerchant(clickedPosition) {
     let nearestMerchant = null;
     let minDistance = Infinity;
     merchants.value.forEach((merchant) => {
-        let distance = map.GeometryUtil.distance(
-            clickedPosition,
-            new AMap.LngLat(merchant.location_x + 114, merchant.location_y + 30)
+        let distance = haversine(
+            clickedPosition.getLng(),clickedPosition.getLat(), 
+            merchant.location_x + 114, merchant.location_y + 30
         );
         if (distance < minDistance) {
             minDistance = distance;
