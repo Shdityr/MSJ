@@ -49,13 +49,14 @@ const fetchData = async () => {
 
     for (let i = 0; i < DishIds.length; i++) {
       const DishId = DishIds[i]
-
+      console.log(DishId);
       const response = await axios.get('http://121.40.208.74:8081/dishes', {
         params: {
           DishesId: Number(DishId),
           ReviewsSorted: 1
         }
       })
+      console.log(response.data);
       const dish = ref<Dish>(null);
       dish.value = response.data;
       dish.value.images.forEach((image, index) => {
