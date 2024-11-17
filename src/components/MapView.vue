@@ -71,36 +71,36 @@ function haversine(lat1, lon1, lat2, lon2) {
   const dLon = (lon2 - lon1) * (Math.PI / 180);
 
   const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c * 1000; // 返回单位为米的距离
 }
 
 function findNearestMerchant(clickedPosition) {
-    let nearestMerchant = null;
-    let minDistance = Infinity;
-    merchants.value.forEach((merchant) => {
-        let distance = haversine(
-            clickedPosition.getLng(),clickedPosition.getLat(), 
-            merchant.location_x + 114, merchant.location_y + 30
-        );
-        if (distance < minDistance && distance < 30) {
-            minDistance = distance;
-            nearestMerchant = merchant;
-        }
-    });
-    return nearestMerchant;
+  let nearestMerchant = null;
+  let minDistance = Infinity;
+  merchants.value.forEach((merchant) => {
+    let distance = haversine(
+      clickedPosition.getLng(), clickedPosition.getLat(),
+      merchant.location_x + 114, merchant.location_y + 30
+    );
+    if (distance < minDistance && distance < 30) {
+      minDistance = distance;
+      nearestMerchant = merchant;
+    }
+  });
+  return nearestMerchant;
 }
 
 function showInfoClick(e) {
-    let clickedPosition = e.lnglat;
-    let nearestMerchant = null;
-    nearestMerchant = findNearestMerchant(clickedPosition);
-    if(nearestMerchant != null) {
-      selectMerchant(nearestMerchant.id);
-      console.log(nearestMerchant.id);
-    }
+  let clickedPosition = e.lnglat;
+  let nearestMerchant = null;
+  nearestMerchant = findNearestMerchant(clickedPosition);
+  if (nearestMerchant != null) {
+    selectMerchant(nearestMerchant.id);
+    console.log(nearestMerchant.id);
+  }
 }
 
 onMounted(() => {
@@ -111,7 +111,7 @@ onMounted(() => {
   })
     .then((AMap) => {
       map = new AMap.Map('containerMap', {
-        viewMode: '3D',
+        viewMode: '2D',
         zoom: 15,
         center: [114.36432501897332, 30.535764663035046],
         resizeEnable: true
@@ -129,35 +129,35 @@ onMounted(() => {
       if (navigator.geolocation) {
         // 调用浏览器定位功能
         navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude } = position.coords;
+          (position) => {
+            const { latitude, longitude } = position.coords;
 
-                // 打印用户位置信息
-                console.log(`用户位置：经度 ${longitude}, 纬度 ${latitude}`);
+            // 打印用户位置信息
+            console.log(`用户位置：经度 ${longitude}, 纬度 ${latitude}`);
 
-                // 在高德地图上标记用户位置
-                new AMap.Marker({
-                    position: [longitude, latitude],
-                    map: map,
-                    title: '您的位置'
-                });
+            // 在高德地图上标记用户位置
+            new AMap.Marker({
+              position: [longitude, latitude],
+              map: map,
+              title: '您的位置'
+            });
 
-                // 设置地图中心为用户位置
-                map.setCenter([longitude, latitude]);
-            },
-            (error) => {
-                console.error('定位失败:', error.message);
-                alert('定位失败，请检查设备定位权限或网络连接。');
-            },
-            {
-                enableHighAccuracy: true, // 启用高精度定位
-                timeout: 10000,          // 超时时间
-                maximumAge: 0            // 不使用缓存
-            }
+            // 设置地图中心为用户位置
+            map.setCenter([longitude, latitude]);
+          },
+          (error) => {
+            console.error('定位失败:', error.message);
+            alert('定位失败，请检查设备定位权限或网络连接。');
+          },
+          {
+            enableHighAccuracy: true, // 启用高精度定位
+            timeout: 10000,          // 超时时间
+            maximumAge: 0            // 不使用缓存
+          }
         );
-    } else {
+      } else {
         alert('您的浏览器不支持定位功能，请更换设备或浏览器。');
-    }
+      }
 
 
       // fetchMerchants()
@@ -175,8 +175,14 @@ onMounted(() => {
 
       fetchMerchants().then(() => {
         merchants.value.forEach((merchant) => {
+          var icon = new AMap.Icon({
+            size: new AMap.Size(40, 50),    // 图标尺寸
+            image: merchant.images[0],  // Icon的图像
+            imageOffset: new AMap.Pixel(0, -60),  // 图像相对展示区域的偏移量，适于雪碧图等
+            imageSize: new AMap.Size(40, 50)   // 根据所设置的大小拉伸或压缩图片
+          });
           const marker = new AMap.Marker({
-            icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+            icon: icon,
             position: [114 + merchant.location_x, 30 + merchant.location_y], // 基于偏移值计算实际位置
             title: merchant.name // 显示商家名称
           });
