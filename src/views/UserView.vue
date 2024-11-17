@@ -6,7 +6,7 @@ import MapView from '../components/MapView.vue'
 
 <template>
   <div class="windows">
-    <div class="overflow">
+    <div class="content">
       <UserView />
     </div>
     <div class="footer-buttons">
@@ -18,12 +18,8 @@ import MapView from '../components/MapView.vue'
 </template>
 
 <style scoped>
-.overflow {
-  overflow-y: auto;
-}
-
 .windows {
-  position: fixed;
+  position: relative; /* 修改为相对定位 */
   top: 20px;
   left: 20px;
   width: 400px;
@@ -32,13 +28,19 @@ import MapView from '../components/MapView.vue'
   padding: 15px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 10; /* 确保在上层 */
-  opacity: 0.95; /* 增加一点透明感 */
-  backdrop-filter: blur(5px); /* 可选：添加背景模糊效果 */
+  z-index: 10;
+  opacity: 0.95;
+  backdrop-filter: blur(5px);
+}
+
+.content {
+  height: calc(100% - 88px); /* 减去底部按钮的高度和内边距 */
+  overflow-y: auto; /* 允许内容滚动 */
+  padding-bottom: 16px; /* 与底部按钮的间距 */
 }
 
 .footer-buttons {
-  position: fixed;
+  position: absolute; /* 改为绝对定位 */
   bottom: 0;
   left: 0;
   width: 100%;
