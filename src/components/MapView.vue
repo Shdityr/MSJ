@@ -68,25 +68,13 @@ const addMarker = (merchant) => {
       position: [114 + merchant.location_x, 30 + merchant.location_y], // 基于偏移值计算实际位置
       title: merchant.name // 显示商家名称
     })
-    console.log(`Added marker for ${merchant.name} at ${merchant.location_x}, ${merchant.location_y}`)
+    marker.setMap(map); // 将标记添加到地图上
   } else {
     console.warn('Map is not initialized yet!')
   }
-  });
+  };
 
-  // 添加自定义内容（如图片）
-  // if (merchant.image) {
-  //   marker.setContent(`
-  //     <div style="text-align: center;">
-  //       <img src="${merchant.image}" alt="${merchant.name}" style="width: 50px; height: 50px; border-radius: 5px;" />
-  //       <p>${merchant.name}</p>
-  //     </div>
-  //   `);
-  // }
 
-  marker.setMap(map); // 将标记添加到地图上
-  console.log(`Added marker for ${merchant.name} at ${merchant.location_x}, ${merchant.location_y}`)
-};
 
 onMounted(() => {
   AMapLoader.load({
@@ -111,7 +99,7 @@ onMounted(() => {
       const geolocation = new AMap.Geolocation()
       map.addControl(geolocation)
 
-      await fetchMerchants()
+      fetchMerchants()
       // 添加所有初始点
       merchants.value.forEach((merchant) => {
         addMarker(merchant)
