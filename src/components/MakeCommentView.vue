@@ -41,62 +41,61 @@
   </template>
   
   <script>
-  export default {
-    name: 'MakeCommentView',
-    props: {
-      dishId: {
-        type: Number,
-        required: true
+import { useRoute } from 'vue-router'; // 引入useRoute
+
+export default {
+  name: 'MakeCommentView',
+  data() {
+    const route = useRoute(); // 获取当前路由
+    return {
+      commentText: '',
+      rating: '',
+      imageFile: null,
+      dishId: route.params.dishId 
+    };
+  },
+  methods: {
+    handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.imageFile = file;
       }
     },
-    data() {
-      return {
-        commentText: '',
-        rating: '',
-        imageFile: null
-      };
-    },
-    methods: {
-      handleImageUpload(event) {
-        const file = event.target.files[0];
-        if (file) {
-          this.imageFile = file;
+    async submitComment() {
+      // 创建FormData对象以便上传文件
+      const formData = new FormData();
+      formData.append('dishId', this.dishId); // dishId
+      formData.append('comment', this.commentText); // 评论文本
+      formData.append('rating', this.rating); //评分
+      if (this.imageFile) {
+        formData.append('images', this.imageFile);//图片
+      }
+
+      try {
+        // 替换为实际的API请求URL
+        const response = await fetch('http://121.40.208.74:8081/reviews', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          throw new Error('提交评论失败');
         }
-      },
-      async submitComment() {
-        // 创建FormData对象以便上传文件
-        const formData = new FormData();
-        formData.append('dishId', this.dishId);
-        formData.append('comment', this.commentText);
-        formData.append('rating', this.rating);
-        if (this.imageFile) {
-          formData.append('image', this.imageFile);
-        }
-  
-        try {
-          // 替换为实际的API请求URL
-          const response = await fetch('http://121.40.208.74:8081/reviews', {
-            method: 'POST',
-            body: formData
-          });
-  
-          if (!response.ok) {
-            throw new Error('提交评论失败');
-          }
-  
-          // 重置表单
-          this.commentText = '';
-          this.rating = '';
-          this.imageFile = null;
-          alert('评论提交成功');
-        } catch (error) {
-          console.error(error);
-          alert('评论提交失败');
-        }
+
+        // 重置表单
+        this.commentText = '';
+        this.rating = '';
+        this.imageFile = null;
+        alert('评论提交成功');
+      } catch (error) {
+        console.error(error);
+        alert('评论提交失败');
       }
     }
-  };
-  </script>
+  }
+};
+</script>
+
   
   <style scoped>
 .make-comment-view {
