@@ -37,7 +37,7 @@
           <li>设置</li>
         </ul> -->
         <button class="logout-button" @click="logout">登出</button>
-        <button class="home-button" @click="goToHome">回到主页</button>      
+        <!-- <button class="home-button" @click="goToHome">回到主页</button>       -->
       
       </main>
           <!-- 侧边栏 -->

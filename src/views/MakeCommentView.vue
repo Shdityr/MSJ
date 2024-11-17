@@ -4,15 +4,14 @@ import MapView from '../components/MapView.vue'
 </script>
 
 <template>
-    <div class="windows">
-      <MakeCommentView />
+  <div class="windows">
+    <MakeCommentView />
+    <div class="footer-buttons">
       <router-link to="/" class="button">首页</router-link>
       <router-link to="/user" class="button">个人中心</router-link>
     </div>
-    <MapView />
-    <div class="footer-buttons">
-
   </div>
+  <MapView />
   </template>
   
   <style scoped>

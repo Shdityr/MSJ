@@ -6,12 +6,12 @@ import MapView from '../components/MapView.vue'
 <template>
   <div class="windows">
     <DishView />
-    <router-link to="/" class="button">首页</router-link>
-    <router-link to="/user" class="button">个人中心</router-link>
+    <div class="footer-buttons">
+      <router-link to="/" class="button">首页</router-link>
+      <router-link to="/user" class="button">个人中心</router-link>
+    </div>
   </div>
   <MapView />
-  <div class="footer-buttons">
-  </div>
 </template>
 
 <style scoped>
