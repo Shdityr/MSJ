@@ -28,32 +28,32 @@ function goBack() {
 }
 
 const fetchData = async () => {
-  try {
-    const response = await axios.get('http://121.40.208.74:8081/restaurants', {
-      params: {
-        RestaurantId: merchantId,
-        ReviewsSorted: 1,
-        DishesSorted: 1
-      }
-    })
-    currentMerchant.value = response.data
-    currentMerchant.value.images.forEach((image, index) => {
-      currentMerchant.value.images[index] = convertBase64ToImageUrl(image);
-    });
-  } catch (error) {
-    console.error('获取商家信息失败:', error)
-  }
+  // try {
+  //   const response = await axios.get('http://121.40.208.74:8081/restaurants', {
+  //     params: {
+  //       RestaurantId: merchantId,
+  //       ReviewsSorted: 1,
+  //       DishesSorted: 1
+  //     }
+  //   })
+  //   currentMerchant.value = response.data
+  //   currentMerchant.value.images.forEach((image, index) => {
+  //     currentMerchant.value.images[index] = convertBase64ToImageUrl(image);
+  //   });
+  // } catch (error) {
+  //   console.error('获取商家信息失败:', error)
+  // }
 
   try {
     const DishIds = currentMerchant.value.DishesId
 
     for (let i = 0; i < DishIds.length; i++) {
-      const DishId = DishIds[i]
+      const DishId = 101
       console.log(DishId);
       const response = await axios.get('http://121.40.208.74:8081/dishes', {
         params: {
-          DishesId: Number(DishId),
-          ReviewsSorted: 1
+          DishId: DishId,
+          ReviewsSorted: 0
         }
       })
       console.log(response.data);
