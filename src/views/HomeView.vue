@@ -5,7 +5,9 @@ import MapView from '../components/MapView.vue'
 
 <template>
   <div class="windows">
-    <WindowsView />
+    <div class="overflow">
+      <WindowsView />
+    </div>
     <div class="footer-buttons">
       <router-link to="/" class="button">首页</router-link>
       <router-link to="/user" class="button">个人中心</router-link>
@@ -15,21 +17,27 @@ import MapView from '../components/MapView.vue'
 </template>
 
 <style scoped>
+.overflow {
+  overflow-y: auto;
+}
+
 .windows {
-  position: relative; /* 修改为相对定位 */
+  position: fixed;
+  top: 20px;
+  left: 20px;
   width: 400px;
   height: 90vh;
-  overflow-y: auto; /* 保持内容可以滚动 */
   background-color: #ffffff;
   padding: 15px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10; /* 确保在上层 */
   opacity: 0.95; /* 增加一点透明感 */
   backdrop-filter: blur(5px); /* 可选：添加背景模糊效果 */
 }
 
 .footer-buttons {
-  position: absolute; /* 修改为绝对定位 */
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
