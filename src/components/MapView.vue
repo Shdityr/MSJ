@@ -1,9 +1,9 @@
 <template>
-   <!-- <div> -->
-    <!-- <button @click="toggleAddMarker" class="toggle-button">
+  <!-- <div> -->
+  <!-- <button @click="toggleAddMarker" class="toggle-button">
       {{ canAddMarker ? '停止添加点' : '添加点' }}
     </button> -->
-    <div id="containerMap" style="width: 100%; height: 100vh"></div>
+  <div id="containerMap" style="width: 100%; height: 100vh"></div>
 
 </template>
 
@@ -62,17 +62,7 @@ const fetchMerchants = async () => {
 //   }
 // ]
 
-const addMarker = (merchant) => {
-  if (map) {
-    const marker = new AMap.Marker({
-      position: [114 + merchant.location_x, 30 + merchant.location_y], // 基于偏移值计算实际位置
-      title: merchant.name // 显示商家名称
-    })
-    marker.setMap(map); // 将标记添加到地图上
-  } else {
-    console.warn('Map is not initialized yet!')
-  }
-  };
+
 
 
 
@@ -104,9 +94,17 @@ onMounted(() => {
       // merchants.value.forEach((merchant) => {
       //   addMarker(merchant)
       // })
+
+      map.addTestMarker()
+
       fetchMerchants().then(() => {
         merchants.value.forEach((merchant) => {
-          addMarker(merchant); // 遍历每个商家并添加到地图
+          const marker = new AMap.Marker({
+            icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+            position: [114 + merchant.location_x, 30 + merchant.location_y], // 基于偏移值计算实际位置
+            title: merchant.name // 显示商家名称
+          });
+          marker.setMap(map); // 将标记添加到地图上
         });
       });
     })
@@ -115,8 +113,8 @@ onMounted(() => {
     })
 })
 
-  onUnmounted(() => {
-    map.destroy();
+onUnmounted(() => {
+  map.destroy();
 })
 </script>
 
@@ -124,8 +122,10 @@ onMounted(() => {
 /* 模态框样式 */
 #mapContainer {
   width: 100%;
-  height: 100vh; /* 设置全屏高度 */
+  height: 100vh;
+  /* 设置全屏高度 */
 }
+
 .modal {
   display: flex;
   position: fixed;
