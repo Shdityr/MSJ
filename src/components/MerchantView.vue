@@ -48,7 +48,7 @@ const fetchData = async () => {
 
       const response = await axios.get('http://121.40.208.74:8081/dishes', {
         params: {
-          DishesId: DishId,
+          DishesId: Number(DishId),
           ReviewsSorted: 1
         }
       })
