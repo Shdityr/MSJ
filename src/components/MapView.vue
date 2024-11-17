@@ -71,7 +71,7 @@ function findNearestMerchant(clickedPosition) {
     merchants.value.forEach((merchant) => {
         let distance = map.GeometryUtil.distance(
             clickedPosition,
-            new AMap.LngLat(merchant.location_x, merchant.location_y)
+            new AMap.LngLat(merchant.location_x + 114, merchant.location_y + 30)
         );
         if (distance < minDistance) {
             minDistance = distance;
