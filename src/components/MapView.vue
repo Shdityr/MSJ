@@ -99,16 +99,16 @@ onMounted(() => {
       const geolocation = new AMap.Geolocation()
       map.addControl(geolocation)
 
-      fetchMerchants()
-      // 添加所有初始点
-      merchants.value.forEach((merchant) => {
-        addMarker(merchant)
-      })
-      // fetchMerchants().then(() => {
-      //   merchants.value.forEach((merchant) => {
-      //     addMarker(merchant); // 遍历每个商家并添加到地图
-      //   });
-      // });
+      // fetchMerchants()
+      // // 添加所有初始点
+      // merchants.value.forEach((merchant) => {
+      //   addMarker(merchant)
+      // })
+      fetchMerchants().then(() => {
+        merchants.value.forEach((merchant) => {
+          addMarker(merchant); // 遍历每个商家并添加到地图
+        });
+      });
     })
     .catch((e) => {
       console.error(e)
