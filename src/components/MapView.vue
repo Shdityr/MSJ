@@ -63,10 +63,15 @@ const fetchMerchants = async () => {
 // ]
 
 const addMarker = (merchant) => {
-  const marker = new AMap.Marker({
-    position: new AMap.LngLat(114 + merchant.location_x, 30 + merchant.location_y), // 使用商家的经纬度
-    title: merchant.name, // 可选：设置商家名称作为提示
-    
+  if (map) {
+    const marker = new AMap.Marker({
+      position: [114 + merchant.location_x, 30 + merchant.location_y], // 基于偏移值计算实际位置
+      title: merchant.name // 显示商家名称
+    })
+    console.log(`Added marker for ${merchant.name} at ${merchant.location_x}, ${merchant.location_y}`)
+  } else {
+    console.warn('Map is not initialized yet!')
+  }
   });
 
   // 添加自定义内容（如图片）
@@ -84,7 +89,6 @@ const addMarker = (merchant) => {
 };
 
 onMounted(() => {
-  fetchMerchants();
   AMapLoader.load({
     key: '2f70ab6d3da02f752e9ad66585d479a8',
     version: '2.0',
@@ -107,6 +111,7 @@ onMounted(() => {
       const geolocation = new AMap.Geolocation()
       map.addControl(geolocation)
 
+      await fetchMerchants()
       // 添加所有初始点
       merchants.value.forEach((merchant) => {
         addMarker(merchant)
