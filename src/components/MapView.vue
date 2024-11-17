@@ -182,12 +182,13 @@ onMounted(() => {
             // image: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
             // imageOffset: new AMap.Pixel(0, -60),  // 图像相对展示区域的偏移量，适于雪碧图等
             imageSize: new AMap.Size(40, 50),  // 根据所设置的大小拉伸或压缩图片
-             anchor: 'bottom-center'
+            //  anchor: 'bottom-center'
           });
           const marker = new AMap.Marker({
             icon: icon0,
             position: [114 + merchant.location_x, 30 + merchant.location_y], // 基于偏移值计算实际位置
             title: merchant.name // 显示商家名称
+            offset: new AMap.Pixel(0, -25)
           });
           marker.setMap(map); // 将标记添加到地图上
         });
