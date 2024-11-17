@@ -49,10 +49,6 @@ const fetchMerchants = async () => {
   }
 }
 
-onMounted(() => {
-  fetchMerchants()
-})
-
 // const points = [
 //   {
 //     name: '点1',
@@ -86,6 +82,7 @@ const addMarker = (merchant) => {
 };
 
 onMounted(() => {
+  fetchMerchants();
   AMapLoader.load({
     key: '2f70ab6d3da02f752e9ad66585d479a8',
     version: '2.0',
