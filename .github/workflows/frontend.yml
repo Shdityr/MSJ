@@ -55,17 +55,17 @@ jobs:
         cp package.json ./dist/
         tar -czf package.tar.gz -C ./dist package.json
 
-
-
-    - name: Deploy to Alibaba Cloud
+    - name: Deploy package.json to Alibaba Cloud
       uses: appleboy/scp-action@v0.1.0
       with:
         host: ${{ secrets.ALIYUN_HOST }}
         username: ${{ secrets.ALIYUN_USERNAME }}
         key: ${{ secrets.ALIYUN_SSH_KEY }}
         passphrase: ${{ secrets.ALIYUN_SSH_PASSPHRASE }}
-        source: "./dist/*"
+        source: "./package.tar.gz"
         target: "/opt/app/frontend"
+
+
 
     - name: Start New Application
       uses: appleboy/ssh-action@v0.1.1
