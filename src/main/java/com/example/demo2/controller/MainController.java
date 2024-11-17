@@ -127,7 +127,7 @@ public class MainController {
 
 
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)  //将处理POST请求的URL映射到 addNewArticle 方法上。@RequestBody int id
-    public @ResponseBody RestaurantInfo_All getRestaurantInfo_All(int RestaurantId,int IsaDinningHall, int ReviewsSorted, int DishesSorted) {
+    public @ResponseBody RestaurantInfo_All getRestaurantInfo_All(int RestaurantId, int ReviewsSorted, int DishesSorted) {
         System.out.println("restaurants");
         return mainService.getRestaurantInfo_All(RestaurantId,ReviewsSorted,DishesSorted);
     }
