@@ -61,13 +61,17 @@ const fetchMerchants = async () => {
   }
 }
 
+const selectMerchant = (merchantId) => {
+  router.push({ name: 'merchant', params: { merchantId: merchantId } })
+}
+
 function findNearestMerchant(clickedPosition) {
     let nearestMerchant = null;
     let minDistance = Infinity;
     merchants.value.forEach((merchant) => {
         let distance = AMap.GeometryUtil.distance(
             clickedPosition,
-            new AMap.LngLat(merchant.location[0], merchant.location[1])
+            new AMap.LngLat(merchant.location_x, merchant.location_y)
         );
         if (distance < minDistance) {
             minDistance = distance;
@@ -80,6 +84,7 @@ function findNearestMerchant(clickedPosition) {
 function showInfoClick(e) {
     let clickedPosition = e.lnglat;
     let nearestMerchant = findNearestMerchant(clickedPosition);
+    selectMerchant(nearestMerchant.id)
     console.log(nearestMerchant.id);
 }
 
