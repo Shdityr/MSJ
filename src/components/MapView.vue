@@ -3,7 +3,7 @@
     <button @click="toggleAddMarker" class="toggle-button">
       {{ canAddMarker ? '停止添加点' : '添加点' }}
     </button>
-    <div id="containerMap" style="width: 100%; height: 500px"></div>
+    <div id="containerMap" style="width: 100%; height: 100vh"></div>
 
     <!-- 模态框 -->
     <div v-if="isModalVisible" class="modal">
@@ -172,6 +172,10 @@ onUnmounted(() => {
 
 <style>
 /* 模态框样式 */
+#mapContainer {
+  width: 100%;
+  height: 100vh; /* 设置全屏高度 */
+}
 .modal {
   display: flex;
   position: fixed;
