@@ -7,7 +7,7 @@
           <li>主页</li>
           <li>个人资料</li>
           <li>
-            <router-link to="/make-comment" class="menu-link">发表评价</router-link>
+            我的消息
           </li>
           <li>设置</li>
         </ul>
