@@ -3,6 +3,18 @@
   <!-- <button @click="toggleAddMarker" class="toggle-button">
       {{ canAddMarker ? '停止添加点' : '添加点' }}
     </button> -->
+  <!-- <div class="info" id="text">
+    请用鼠标在地图上操作试试
+  </div>
+  <div class="input-card" style="width:16rem">
+    <h4>地图点击相关事件</h4>
+    <div>
+      <div class="input-item">
+        <button id="clickOn" class="btn" style="margin-right:1rem;">绑定事件</button>
+        <button id="clickOff" class="btn">解绑事件</button>
+      </div>
+    </div>
+  </div> -->
   <div id="containerMap" style="width: 100%; height: 100vh"></div>
 
 </template>
@@ -49,22 +61,27 @@ const fetchMerchants = async () => {
   }
 }
 
-// const points = [
-//   {
-//     name: '点1',
-//     position: [114.36432501897332, 30.535764663035046],
-//     image: '../assets/icon1.png'
-//   },
-//   {
-//     name: '点2',
-//     position: [114.365, 30.536],
-//     image: '../assets/icon1.png'
-//   }
-// ]
+function findNearestMerchant(clickedPosition) {
+    let nearestMerchant = null;
+    let minDistance = Infinity;
+    merchants.value.forEach((merchant) => {
+        let distance = AMap.GeometryUtil.distance(
+            clickedPosition,
+            new AMap.LngLat(merchant.location[0], merchant.location[1])
+        );
+        if (distance < minDistance) {
+            minDistance = distance;
+            nearestMerchant = merchant;
+        }
+    });
+    return nearestMerchant;
+}
 
-
-
-
+function showInfoClick(e) {
+    let clickedPosition = e.lnglat;
+    let nearestMerchant = findNearestMerchant(clickedPosition);
+    console.log(nearestMerchant.id);
+}
 
 onMounted(() => {
   AMapLoader.load({
@@ -96,9 +113,9 @@ onMounted(() => {
       // })
 
       const marker1 = new AMap.Marker({
-            icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
-            position: [114.36432501897332, 30.535764663035046], // 基于偏移值计算实际位置
-            title: 'testmarker' // 显示商家名称
+        icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+        position: [114.36432501897332, 30.535764663035046], // 基于偏移值计算实际位置
+        title: 'testmarker' // 显示商家名称
       })
       marker1.setMap(map)
 
@@ -113,9 +130,8 @@ onMounted(() => {
         });
       });
     })
-    .catch((e) => {
-      console.error(e)
-    })
+
+  map.on('click', showInfoClick);
 })
 
 onUnmounted(() => {
