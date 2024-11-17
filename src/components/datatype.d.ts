@@ -47,3 +47,9 @@ export interface Dish {
     Style: string[];
   }
 
+  export interface User {
+    id: number;
+    username: string;
+    userAvatar: string;
+    password: number;
+  }
