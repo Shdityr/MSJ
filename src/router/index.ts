@@ -6,6 +6,7 @@ import MerchantView from '../views/MerchantView.vue'
 import DishView from '../views/DishView.vue'
 import ReviewView from '../views/ReviewView.vue'
 import UserView from '../views/UserView.vue'
+import LoginView from '../views/LoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,9 +42,22 @@ const router = createRouter({
       component: ReviewView
     },
     {
-      path: '/User',
-      name: 'User',
-      component: UserView
+      path: '/user',
+      name: 'user',
+      component: UserView,
+      beforeEnter: (to, from, next) => {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (isLoggedIn) {
+          next(); // 用户已登录，继续访问 UserView
+        } else {
+          next('/login'); // 用户未登录，重定向到 LoginView
+        }
+      },
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
     }
   ]
 })
