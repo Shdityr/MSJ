@@ -111,7 +111,7 @@ onMounted(() => {
   })
     .then((AMap) => {
       map = new AMap.Map('containerMap', {
-        viewMode: '2D',
+        viewMode: '3D',
         zoom: 15,
         center: [114.36432501897332, 30.535764663035046],
         resizeEnable: true
@@ -188,7 +188,7 @@ onMounted(() => {
             icon: icon0,
             position: [114 + merchant.location_x, 30 + merchant.location_y], // 基于偏移值计算实际位置
             title: merchant.name, // 显示商家名称
-            offset: new AMap.Pixel(0, -25)
+            offset: new AMap.Pixel(-20, -25)
           });
           marker.setMap(map); // 将标记添加到地图上
         });
