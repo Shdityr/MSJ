@@ -135,7 +135,7 @@ onMounted(() => {
         });
       });
     })
-
+  fetchMerchants()
   map.on('click', showInfoClick);
 })
 
