@@ -8,7 +8,7 @@ import MapView from '../components/MapView.vue'
     <MapView />
     <div class="windows">
       <div class="content">
-        <UserView />
+        <MerchantView />
       </div>
       <div class="footer-buttons">
         <router-link to="/" class="button">首页</router-link>
