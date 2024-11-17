@@ -95,7 +95,12 @@ onMounted(() => {
       //   addMarker(merchant)
       // })
 
-      map.addTestMarker()
+      const marker1 = new AMap.Marker({
+            icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+            position: [114.36432501897332, 30.535764663035046], // 基于偏移值计算实际位置
+            title: 'testmarker' // 显示商家名称
+      })
+      marker1.setMap(map)
 
       fetchMerchants().then(() => {
         merchants.value.forEach((merchant) => {
