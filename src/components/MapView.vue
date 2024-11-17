@@ -126,38 +126,38 @@ onMounted(() => {
       const geolocation = new AMap.Geolocation()
       map.addControl(geolocation)
 
-      if (navigator.geolocation) {
-        // 调用浏览器定位功能
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
+      // if (navigator.geolocation) {
+      //   // 调用浏览器定位功能
+      //   navigator.geolocation.getCurrentPosition(
+      //     (position) => {
+      //       const { latitude, longitude } = position.coords;
 
-            // 打印用户位置信息
-            console.log(`用户位置：经度 ${longitude}, 纬度 ${latitude}`);
+      //       // 打印用户位置信息
+      //       console.log(`用户位置：经度 ${longitude}, 纬度 ${latitude}`);
 
-            // 在高德地图上标记用户位置
-            new AMap.Marker({
-              position: [longitude, latitude],
-              map: map,
-              title: '您的位置'
-            });
+      //       // 在高德地图上标记用户位置
+      //       new AMap.Marker({
+      //         position: [longitude, latitude],
+      //         map: map,
+      //         title: '您的位置'
+      //       });
 
-            // 设置地图中心为用户位置
-            map.setCenter([longitude, latitude]);
-          },
-          (error) => {
-            console.error('定位失败:', error.message);
-            alert('定位失败，请检查设备定位权限或网络连接。');
-          },
-          {
-            enableHighAccuracy: true, // 启用高精度定位
-            timeout: 10000,          // 超时时间
-            maximumAge: 0            // 不使用缓存
-          }
-        );
-      } else {
-        alert('您的浏览器不支持定位功能，请更换设备或浏览器。');
-      }
+      //       // 设置地图中心为用户位置
+      //       map.setCenter([longitude, latitude]);
+      //     },
+      //     (error) => {
+      //       console.error('定位失败:', error.message);
+      //       alert('定位失败，请检查设备定位权限或网络连接。');
+      //     },
+      //     {
+      //       enableHighAccuracy: true, // 启用高精度定位
+      //       timeout: 10000,          // 超时时间
+      //       maximumAge: 0            // 不使用缓存
+      //     }
+      //   );
+      // } else {
+      //   alert('您的浏览器不支持定位功能，请更换设备或浏览器。');
+      // }
 
 
       // fetchMerchants()
@@ -175,14 +175,14 @@ onMounted(() => {
 
       fetchMerchants().then(() => {
         merchants.value.forEach((merchant) => {
-          var icon = new AMap.Icon({
+          var icon0 = new AMap.Icon({
             size: new AMap.Size(40, 50),    // 图标尺寸
             image: merchant.images[0],  // Icon的图像
             imageOffset: new AMap.Pixel(0, -60),  // 图像相对展示区域的偏移量，适于雪碧图等
             imageSize: new AMap.Size(40, 50)   // 根据所设置的大小拉伸或压缩图片
           });
           const marker = new AMap.Marker({
-            icon: icon,
+            icon: icon0,
             position: [114 + merchant.location_x, 30 + merchant.location_y], // 基于偏移值计算实际位置
             title: merchant.name // 显示商家名称
           });
