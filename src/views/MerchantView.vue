@@ -8,7 +8,7 @@ import MapView from '../components/MapView.vue'
     <MapView />
     <div class="windows">
       <div class="content">
-        <MerchantView />
+        <UserView />
       </div>
       <div class="footer-buttons">
         <router-link to="/" class="button">首页</router-link>
@@ -39,7 +39,7 @@ MapView {
   position: absolute;
   top: 20px;
   left: 20px;
-  width: 400px;
+  width: 450px;
   height: calc(100% - 40px); /* 减去顶部和底部的边距 */
   background-color: #ffffff;
   padding: 15px;
