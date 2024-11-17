@@ -69,7 +69,7 @@ function findNearestMerchant(clickedPosition) {
     let nearestMerchant = null;
     let minDistance = Infinity;
     merchants.value.forEach((merchant) => {
-        let distance = AMap.GeometryUtil.distance(
+        let distance = map.GeometryUtil.distance(
             clickedPosition,
             new AMap.LngLat(merchant.location_x, merchant.location_y)
         );
@@ -134,9 +134,10 @@ onMounted(() => {
           marker.setMap(map); // 将标记添加到地图上
         });
       });
+
+      map.on('click', showInfoClick);
+
     })
-  fetchMerchants()
-  map.on('click', showInfoClick);
 })
 
 onUnmounted(() => {
