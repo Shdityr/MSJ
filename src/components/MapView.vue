@@ -178,9 +178,10 @@ onMounted(() => {
           var icon0 = new AMap.Icon({
             size: new AMap.Size(40, 50),    // 图标尺寸
             // image: merchant.images[0],  // Icon的图像
-            image: '//webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png',
+            image: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
             // imageOffset: new AMap.Pixel(0, -60),  // 图像相对展示区域的偏移量，适于雪碧图等
-            imageSize: new AMap.Size(40, 50)   // 根据所设置的大小拉伸或压缩图片
+            imageSize: new AMap.Size(40, 50),  // 根据所设置的大小拉伸或压缩图片
+             anchor: 'bottom-center'
           });
           const marker = new AMap.Marker({
             icon: icon0,
