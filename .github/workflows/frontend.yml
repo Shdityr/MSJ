@@ -74,7 +74,7 @@ jobs:
         passphrase: ${{ secrets.ALIYUN_SSH_PASSPHRASE }}
         source: "./dist/*"
         target: "/opt/app/frontend"
-
+        
     - name: Start New Application
       uses: appleboy/ssh-action@v0.1.1
       with:
