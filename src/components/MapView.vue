@@ -187,7 +187,7 @@ onMounted(() => {
           const marker = new AMap.Marker({
             icon: icon0,
             position: [114 + merchant.location_x, 30 + merchant.location_y], // 基于偏移值计算实际位置
-            title: merchant.name // 显示商家名称
+            title: merchant.name, // 显示商家名称
             offset: new AMap.Pixel(0, -25)
           });
           marker.setMap(map); // 将标记添加到地图上
