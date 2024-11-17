@@ -249,7 +249,7 @@ public class MainService {
         int id=dish.getId();
         List<byte[]> images=images_convert(dish.getImages());
         String name=dish.getName();
-        String store= dish.getStore();
+//        String store= dish.getStore();
         float rating=dish.getRating();
 
         float averagePrice=dish.getAveragePrice();
@@ -270,7 +270,7 @@ public class MainService {
                 reviewsId.add(review.getId());
             }
         }
-        DishInfo ret=new DishInfo(id, images, name, store, rating, averagePrice, Style, reviewsId);
+        DishInfo ret=new DishInfo(id, images, name,  rating, averagePrice, Style, reviewsId);
         return ret;
 
 
@@ -286,7 +286,8 @@ public class MainService {
         List<byte[]> images=images_convert(review.getImages());
         float rating=review.getRating();
         List<String> Style=style_convert(review.getStyle());
-        ReviewInfo ret=new ReviewInfo(id,userID,contents,averagePrice,images,rating,Style);
+        String time=Integer.toString(review.getTime());
+        ReviewInfo ret=new ReviewInfo(id,userID,contents,averagePrice,images,rating,Style,time);
         return ret;
 
 
