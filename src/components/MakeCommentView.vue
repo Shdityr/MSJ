@@ -65,7 +65,7 @@ export default {
       // 创建FormData对象以便上传文件
       const formData = new FormData();
       formData.append('dishId', this.dishId); // dishId
-      formData.append('comment', this.commentText); // 评论文本
+      formData.append('contents', this.commentText); // 评论文本
       formData.append('rating', this.rating); //评分
       if (this.imageFile) {
         formData.append('images', this.imageFile);//图片
