@@ -7,6 +7,7 @@ import DishView from '../views/DishView.vue'
 import ReviewView from '../views/ReviewView.vue'
 import UserView from '../views/UserView.vue'
 import LoginView from '../views/LoginView.vue'
+import MakeCommentView from '../views/MakeCommentView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +60,11 @@ const router = createRouter({
       name: 'login',
       component: LoginView
     }
+    ,{
+      path: '/make-comment',
+      name: 'make-comment',
+      component: MakeCommentView
+    },
   ]
 })
 

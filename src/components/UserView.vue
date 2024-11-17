@@ -6,7 +6,9 @@
         <ul class="menu-list">
           <li>主页</li>
           <li>个人资料</li>
-          <li>消息</li>
+          <li>
+            <router-link to="/make-comment" class="menu-link">发表评价</router-link>
+          </li>
           <li>设置</li>
         </ul>
         <button class="logout-button" @click="logout">登出</button>
@@ -46,7 +48,7 @@
     data() {
       return {
         newPost: '',
-        posts: ['欢迎来到我的主页！', '这是我的第二条帖子'],
+        posts: ['肯德基的塔克系列无疑是一次令人惊喜的体验！鸡肉塔克，外层的饼皮酥脆可口，内里则是嫩滑的鸡肉，搭配上香辣的酱料，每一口都能感受到层次分明的口感和丰富的味道。此外，肯德基在塔克的包装上也下足了功夫，色彩鲜艳、设计独特，不仅便于携带，更增添了几分用餐的乐趣。总之，肯德基的塔克系列是一次值得推荐的美食之旅，无论是寻找新鲜感的食客，还是肯德基的忠实粉丝，都不应错过。', '欢迎来到我的主页！'],
       };
     },
     methods: {
@@ -170,7 +172,7 @@
   
   .post-input {
     width: 100%;
-    height: 100px;
+    height: 200px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -193,6 +195,7 @@
   }
   
   .posts {
+    
     margin-top: 20px;
   }
   
