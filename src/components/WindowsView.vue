@@ -57,11 +57,7 @@ const selectMerchant = (merchantId) => {
       </div>
     </div>
   </div>
-  <div class="footer-buttons">
-      <!-- 使用 router-link 进行路由跳转 -->
-      <router-link to="/" class="button">首页</router-link>
-      <router-link to="/user" class="button">个人中心</router-link>
-  </div>
+
 </template>
 
 <style scoped>
@@ -110,18 +106,6 @@ const selectMerchant = (merchantId) => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.footer-buttons {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 16px;
-  background-color: #f2f2f2;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-}
-
 /* 设置按钮样式 */
 .button {
   padding: 10px 20px;

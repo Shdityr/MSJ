@@ -1,19 +1,5 @@
 <template>
     <div class="user-view-container">
-      <!-- 侧边栏 -->
-      <aside class="sidebar">
-        <h2 class="sidebar-title">导航菜单</h2>
-        <ul class="menu-list">
-          <li>主页</li>
-          <li>个人资料</li>
-          <li>
-            我的消息
-          </li>
-          <li>设置</li>
-        </ul>
-        <button class="logout-button" @click="logout">登出</button>
-        <button class="home-button" @click="goToHome">回到主页</button>
-      </aside>
   
       <!-- 主内容区域 -->
       <main class="main-content">
@@ -39,8 +25,26 @@
             <p>{{ post }}</p>
           </div>
         </section>
+      
+
+        <!-- <h2 class="sidebar-title">导航菜单</h2> -->
+        <!-- <ul class="menu-list">
+          <li>主页</li>
+          <li>个人资料</li>
+          <li>
+            我的消息
+          </li>
+          <li>设置</li>
+        </ul> -->
+        <button class="logout-button" @click="logout">登出</button>
+        <button class="home-button" @click="goToHome">回到主页</button>      
+      
       </main>
+          <!-- 侧边栏 -->
+      <!-- <aside class="sidebar"> -->
+      <!-- </aside> -->
     </div>
+
   </template>
   
   <script>

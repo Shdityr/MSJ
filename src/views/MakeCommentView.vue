@@ -8,6 +8,10 @@ import MapView from '../components/MapView.vue'
       <MakeCommentView />
     </div>
     <MapView />
+    <div class="footer-buttons">
+    <router-link to="/" class="button">首页</router-link>
+    <router-link to="/user" class="button">个人中心</router-link>
+  </div>
   </template>
   
   <style scoped>
@@ -26,4 +30,16 @@ import MapView from '../components/MapView.vue'
     opacity: 0.95; /* 增加一点透明感 */
     backdrop-filter: blur(5px); /* 可选：添加背景模糊效果 */
   }
+
+  .footer-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  background-color: #f2f2f2;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
   </style>
