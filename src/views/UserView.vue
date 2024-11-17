@@ -5,32 +5,51 @@ import MapView from '../components/MapView.vue'
 
 
 <template>
-  <div class="windows">
-    <div class="content">
-      <UserView />
-    </div>
-    <div class="footer-buttons">
-      <router-link to="/" class="button">首页</router-link>
-      <router-link to="/user" class="button">个人中心</router-link>
+  <div class="app-container">
+    <MapView />
+    <div class="windows">
+      <div class="content">
+        <UserView />
+      </div>
+      <div class="footer-buttons">
+        <router-link to="/" class="button">首页</router-link>
+        <router-link to="/user" class="button">个人中心</router-link>
+      </div>
     </div>
   </div>
-  <MapView />
 </template>
 
 <style scoped>
+.app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* 防止整个页面滚动 */
+}
+
+MapView {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* 确保MapView在背景层 */
+}
+
 .windows {
-  position: relative; /* 修改为相对定位 */
+  position: absolute;
   top: 20px;
   left: 20px;
   width: 400px;
-  height: 90vh;
+  height: calc(100% - 40px); /* 减去顶部和底部的边距 */
   background-color: #ffffff;
   padding: 15px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 10;
+  z-index: 10; /* 确保在上层 */
   opacity: 0.95;
   backdrop-filter: blur(5px);
+  overflow: hidden; /* 防止内容溢出 */
 }
 
 .content {
@@ -40,7 +59,7 @@ import MapView from '../components/MapView.vue'
 }
 
 .footer-buttons {
-  position: absolute; /* 改为绝对定位 */
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
