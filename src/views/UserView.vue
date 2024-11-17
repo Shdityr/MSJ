@@ -3,9 +3,12 @@ import UserView from '../components/UserView.vue'
 import MapView from '../components/MapView.vue'
 </script>
 
+
 <template>
   <div class="windows">
-    <UserView />
+    <div class="overflow">
+      <UserView />
+    </div>
     <div class="footer-buttons">
       <router-link to="/" class="button">首页</router-link>
       <router-link to="/user" class="button">个人中心</router-link>
@@ -15,13 +18,16 @@ import MapView from '../components/MapView.vue'
 </template>
 
 <style scoped>
+.overflow {
+  overflow-y: auto;
+}
+
 .windows {
   position: fixed;
   top: 20px;
   left: 20px;
   width: 400px;
   height: 90vh;
-  overflow-y: auto;
   background-color: #ffffff;
   padding: 15px;
   border-radius: 15px;
