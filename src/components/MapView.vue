@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <button @click="toggleAddMarker" class="toggle-button">
+   <!-- <div> -->
+    <!-- <button @click="toggleAddMarker" class="toggle-button">
       {{ canAddMarker ? '停止添加点' : '添加点' }}
-    </button>
+    </button> -->
     <div id="containerMap" style="width: 100%; height: 100vh"></div>
 
     <!-- 模态框 -->
-    <div v-if="isModalVisible" class="modal">
+    <!-- <div v-if="isModalVisible" class="modal">
       <div class="modal-content">
         <span class="close" @click="closeModal">&times;</span>
         <h2>编辑点信息</h2>
@@ -15,13 +15,15 @@
         <button @click="savePoint">确认</button>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import AMapLoader from '@amap/amap-jsapi-loader' //Gaode api
 
+import type { MerchantInfo } from './datatype'
+import { convertBase64ToImageUrl } from './Utils';
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 const router = useRouter()
@@ -77,13 +79,13 @@ const points = [
 
 function addMarker(point) {
   const marker = new AMap.Marker({
-    position: new AMap.LngLat(point.position[0], point.position[1]),
-    content: `
-      <div style="text-align: center;">
-        <img src="${point.image}" alt="${point.name}" style="width: 50px; height: 50px; border-radius: 5px;"/>
-        <p>${point.name}</p>
-      </div>
-    `
+    position: new AMap.LngLat(114 + point.location_x, 30 + point.location_y),
+    // content: `
+    //   <div style="text-align: center;">
+    //     <img src="${point.image}" alt="${point.name}" style="width: 50px; height: 50px; border-radius: 5px;"/>
+    //     <p>${point.name}</p>
+    //   </div>
+    // `
   })
   marker.setMap(map)
 
@@ -93,28 +95,28 @@ function addMarker(point) {
   })
 }
 
-function savePoint() {
-  const index = points.findIndex(
-    (p) =>
-      p.position[0] === currentPoint.value.position[0] &&
-      p.position[1] === currentPoint.value.position[1]
-  )
-  if (index !== -1) {
-    points[index] = { ...currentPoint.value }
-    // 更新地图上的标记内容
-    // map.remove(marker) // 移除旧标记
-    addMarker(points[index]) // 重新添加标记以更新内容
-  }
-  closeModal()
-}
+// function savePoint() {
+//   const index = points.findIndex(
+//     (p) =>
+//       p.position[0] === currentPoint.value.position[0] &&
+//       p.position[1] === currentPoint.value.position[1]
+//   )
+//   if (index !== -1) {
+//     points[index] = { ...currentPoint.value }
+//     // 更新地图上的标记内容
+//     // map.remove(marker) // 移除旧标记
+//     addMarker(points[index]) // 重新添加标记以更新内容
+//   }
+//   closeModal()
+// }
 
-function closeModal() {
-  isModalVisible.value = false
-}
+// function closeModal() {
+//   isModalVisible.value = false
+// }
 
-function toggleAddMarker() {
-  canAddMarker.value = !canAddMarker.value // 切换添加点的状态
-}
+// function toggleAddMarker() {
+//   canAddMarker.value = !canAddMarker.value // 切换添加点的状态
+// }
 
 onMounted(() => {
   AMapLoader.load({
@@ -140,21 +142,21 @@ onMounted(() => {
       map.addControl(geolocation)
 
       // 点击事件，添加点
-      map.on('click', (e) => {
-        if (canAddMarker.value) {
-          const newPoint = {
-            name: '新点',
-            position: [e.lnglat.getLng(), e.lnglat.getLat()],
-            image: '../assets/icon1.png' // 默认图片路径
-          }
-          points.push(newPoint) // 添加新点到数组
-          addMarker(newPoint) // 添加标记到地图
-        }
-      })
+      // map.on('click', (e) => {
+      //   if (canAddMarker.value) {
+      //     const newPoint = {
+      //       name: '新点',
+      //       position: [e.lnglat.getLng(), e.lnglat.getLat()],
+      //       image: '../assets/icon1.png' // 默认图片路径
+      //     }
+      //     points.push(newPoint) // 添加新点到数组
+      //     addMarker(newPoint) // 添加标记到地图
+      //   }
+      // })
 
       // 添加所有初始点
-      points.forEach((point) => {
-        addMarker(point)
+      points.forEach((merchant) => {
+        addMarker(merchant)
       })
     })
     .catch((e) => {
