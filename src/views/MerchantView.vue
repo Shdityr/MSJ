@@ -39,7 +39,7 @@ MapView {
   position: absolute;
   top: 20px;
   left: 20px;
-  width: 450px;
+  width: 400px;
   height: calc(100% - 40px); /* 减去顶部和底部的边距 */
   background-color: #ffffff;
   padding: 15px;
@@ -54,7 +54,8 @@ MapView {
 .content {
   height: calc(100% - 88px); /* 减去底部按钮的高度和内边距 */
   overflow-y: auto; /* 允许内容滚动 */
-  padding-bottom: 16px; /* 与底部按钮的间距 */
+  overflow-x: hidden;
+  padding-bottom: 8px; /* 与底部按钮的间距 */
 }
 
 .footer-buttons {
