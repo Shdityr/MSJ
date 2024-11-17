@@ -27,7 +27,12 @@ const fetchMerchants = async () => {
 onMounted(() => {
   fetchMerchants()
 })
-
+function goHome() {
+  router.push({ name: 'Home' })
+}
+function goUser() {
+  router.push({ name: 'User' })
+}
 const selectMerchant = (merchantId) => {
   router.push({ name: 'merchant', params: { merchantId: merchantId } })
 }
@@ -51,6 +56,11 @@ const selectMerchant = (merchantId) => {
         <p class="merchant-businessHours">营业时间： {{ merchant.businessHours }}</p>
       </div>
     </div>
+  </div>
+  <div class="footer-buttons">
+      <!-- 使用 router-link 进行路由跳转 -->
+      <router-link to="/" class="button">Home</router-link>
+      <router-link to="/user" class="button">User</router-link>
   </div>
 </template>
 
@@ -99,5 +109,31 @@ const selectMerchant = (merchantId) => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.footer-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  background-color: #f2f2f2;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 设置按钮样式 */
+.button {
+  padding: 10px 20px;
+  background-color: transparent; /* 透明背景 */
+  color: #000; /* 调整文字颜色为黑色或你需要的颜色 */
+  text-align: center;
+  border: none; /* 移除边框 */
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.button:hover {
+  color: #555; /* 悬停时改变文字颜色 */
 }
 </style>

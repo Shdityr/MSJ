@@ -5,6 +5,7 @@ import WindowsView from '../views/WindowsView.vue'
 import MerchantView from '../views/MerchantView.vue'
 import DishView from '../views/DishView.vue'
 import ReviewView from '../views/ReviewView.vue'
+import UserView from '../views/UserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/review/:reviewId',
       name: 'review',
       component: ReviewView
+    },
+    {
+      path: '/User',
+      name: 'User',
+      component: UserView
     }
   ]
 })
