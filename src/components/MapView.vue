@@ -175,9 +175,10 @@ onMounted(() => {
 
       fetchMerchants().then(() => {
         merchants.value.forEach((merchant) => {
+          const base64Image = `data:image/jpeg;base64,${merchant.images}`;
           var icon0 = new AMap.Icon({
             size: new AMap.Size(40, 50),    // 图标尺寸
-            image: merchant.images[0],  // Icon的图像
+            image: base64Image,  // Icon的图像
             // image: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
             // imageOffset: new AMap.Pixel(0, -60),  // 图像相对展示区域的偏移量，适于雪碧图等
             imageSize: new AMap.Size(40, 50),  // 根据所设置的大小拉伸或压缩图片
