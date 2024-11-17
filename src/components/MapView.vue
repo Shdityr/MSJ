@@ -97,7 +97,7 @@ function showInfoClick(e) {
     let clickedPosition = e.lnglat;
     let nearestMerchant = null;
     nearestMerchant = findNearestMerchant(clickedPosition);
-    if(nearestMerchant) {
+    if(nearestMerchant != null) {
       selectMerchant(nearestMerchant.id);
       console.log(nearestMerchant.id);
     }
@@ -126,18 +126,52 @@ onMounted(() => {
       const geolocation = new AMap.Geolocation()
       map.addControl(geolocation)
 
+      if (navigator.geolocation) {
+        // 调用浏览器定位功能
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+
+                // 打印用户位置信息
+                console.log(`用户位置：经度 ${longitude}, 纬度 ${latitude}`);
+
+                // 在高德地图上标记用户位置
+                new AMap.Marker({
+                    position: [longitude, latitude],
+                    map: map,
+                    title: '您的位置'
+                });
+
+                // 设置地图中心为用户位置
+                map.setCenter([longitude, latitude]);
+            },
+            (error) => {
+                console.error('定位失败:', error.message);
+                alert('定位失败，请检查设备定位权限或网络连接。');
+            },
+            {
+                enableHighAccuracy: true, // 启用高精度定位
+                timeout: 10000,          // 超时时间
+                maximumAge: 0            // 不使用缓存
+            }
+        );
+    } else {
+        alert('您的浏览器不支持定位功能，请更换设备或浏览器。');
+    }
+
+
       // fetchMerchants()
       // // 添加所有初始点
       // merchants.value.forEach((merchant) => {
       //   addMarker(merchant)
       // })
 
-      const marker1 = new AMap.Marker({
-        icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
-        position: [114.36432501897332, 30.535764663035046], // 基于偏移值计算实际位置
-        title: 'testmarker' // 显示商家名称
-      })
-      marker1.setMap(map)
+      // const marker1 = new AMap.Marker({
+      //   icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+      //   position: [114.36432501897332, 30.535764663035046], // 基于偏移值计算实际位置
+      //   title: 'testmarker' // 显示商家名称
+      // })
+      // marker1.setMap(map)
 
       fetchMerchants().then(() => {
         merchants.value.forEach((merchant) => {
