@@ -353,4 +353,19 @@ onMounted(() => {
   margin-right: 10px;
   object-fit: cover;
 }
+
+.comment-button {
+  background-color: #007bff; /* 蓝色背景 */
+  color: white; /* 白色文字 */
+  border: none; /* 无边框 */
+  padding: 10px 20px; /* 内边距 */
+  border-radius: 5px; /* 圆角 */
+  font-size: 16px; /* 字体大小 */
+  cursor: pointer; /* 指针样式 */
+  transition: background-color 0.3s ease; /* 平滑过渡效果 */
+}
+
+.comment-button:hover {
+  background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+}
 </style>
