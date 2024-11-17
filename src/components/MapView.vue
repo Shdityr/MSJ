@@ -40,22 +40,22 @@ const fetchMerchants = async () => {
   try {
     const response = await axios.get('http://121.40.208.74:8081/Home')
     merchants.value = response.data
-    merchants.value.forEach((merchant) => {
-      if (merchant.images) {
-        console.log(merchant.images)
-        const byteCharacters = atob(merchant.images) // 将 base64 字符串转换为字节
-        const byteNumbers = new Uint8Array(byteCharacters.length)
+    // merchants.value.forEach((merchant) => {
+    //   if (merchant.images) {
+    //     console.log(merchant.images)
+    //     const byteCharacters = atob(merchant.images) // 将 base64 字符串转换为字节
+    //     const byteNumbers = new Uint8Array(byteCharacters.length)
 
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i)
-        }
+    //     for (let i = 0; i < byteCharacters.length; i++) {
+    //       byteNumbers[i] = byteCharacters.charCodeAt(i)
+    //     }
 
-        const blob = new Blob([byteNumbers], { type: 'image/jpeg' }) // 根据实际情况调整 MIME 类型
-        merchant.imageUrl = URL.createObjectURL(blob) // 生成 URL
-        console.log(merchant.imageUrl)
-      }
-    })
-    console.log(merchants.value)
+    //     const blob = new Blob([byteNumbers], { type: 'image/jpeg' }) // 根据实际情况调整 MIME 类型
+    //     merchant.imageUrl = URL.createObjectURL(blob) // 生成 URL
+    //     console.log(merchant.imageUrl)
+    //   }
+    // })
+    // console.log(merchants.value)
   } catch (error) {
     console.error('Error fetching merchants:', error)
   }
@@ -177,8 +177,8 @@ onMounted(() => {
         merchants.value.forEach((merchant) => {
           var icon0 = new AMap.Icon({
             size: new AMap.Size(40, 50),    // 图标尺寸
-            // image: merchant.images[0],  // Icon的图像
-            image: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+            image: merchant.images[0],  // Icon的图像
+            // image: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
             // imageOffset: new AMap.Pixel(0, -60),  // 图像相对展示区域的偏移量，适于雪碧图等
             imageSize: new AMap.Size(40, 50),  // 根据所设置的大小拉伸或压缩图片
              anchor: 'bottom-center'
