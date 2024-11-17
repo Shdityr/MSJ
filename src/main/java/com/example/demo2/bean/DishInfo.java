@@ -5,18 +5,21 @@ import jakarta.persistence.Column;
 
 public class DishInfo {
     public int id;
-    public List<byte[]> images;
-    public String name;
-    public String store;
-    public float rating;
 
+    public String name;
+    public float rating;
     public float averagePrice;
-    public List<String> Style;
+    public List<byte[]> images;
     public List<Integer> reviewsId;
+
+
+
+
+    public List<String> Style;
+
     public DishInfo(int id,
                     List<byte[]> images,
                       String name,
-                      String store,
                       float rating,
                       float averagePrice,
                       List<String> Style,
@@ -25,7 +28,7 @@ public class DishInfo {
         this.id=id;
         this.images = images;
         this.name = name;
-        this.store = store;
+//        this.store = store;
         this.rating = rating;
         this.averagePrice = averagePrice;
         this.Style = Style;
