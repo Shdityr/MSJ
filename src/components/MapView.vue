@@ -64,36 +64,37 @@ onMounted(() => {
   fetchMerchants()
 })
 
-const points = [
-  {
-    name: '点1',
-    position: [114.36432501897332, 30.535764663035046],
-    image: '../assets/icon1.png'
-  },
-  {
-    name: '点2',
-    position: [114.365, 30.536],
-    image: '../assets/icon1.png'
-  }
-]
+// const points = [
+//   {
+//     name: '点1',
+//     position: [114.36432501897332, 30.535764663035046],
+//     image: '../assets/icon1.png'
+//   },
+//   {
+//     name: '点2',
+//     position: [114.365, 30.536],
+//     image: '../assets/icon1.png'
+//   }
+// ]
 
-function addMarker(point) {
+const addMarker = (merchant: { location_x: number; location_y: number; name?: string; image?: string }) => {
   const marker = new AMap.Marker({
-    position: new AMap.LngLat(114 + point.location_x, 30 + point.location_y),
-    // content: `
-    //   <div style="text-align: center;">
-    //     <img src="${point.image}" alt="${point.name}" style="width: 50px; height: 50px; border-radius: 5px;"/>
-    //     <p>${point.name}</p>
-    //   </div>
-    // `
-  })
-  marker.setMap(map)
+    position: new AMap.LngLat(merchant.location_x, merchant.location_y), // 使用商家的经纬度
+    title: merchant.name, // 可选：设置商家名称作为提示
+  });
 
-  marker.on('click', () => {
-    currentPoint.value = { ...point } // 复制点信息
-    isModalVisible.value = true // 显示模态框
-  })
-}
+  // 添加自定义内容（如图片）
+  if (merchant.image) {
+    marker.setContent(`
+      <div style="text-align: center;">
+        <img src="${merchant.image}" alt="${merchant.name}" style="width: 50px; height: 50px; border-radius: 5px;" />
+        <p>${merchant.name}</p>
+      </div>
+    `);
+  }
+
+  marker.setMap(map); // 将标记添加到地图上
+};
 
 // function savePoint() {
 //   const index = points.findIndex(
@@ -155,17 +156,22 @@ onMounted(() => {
       // })
 
       // 添加所有初始点
-      points.forEach((merchant) => {
-        addMarker(merchant)
-      })
+      // merchant.forEach((merchant) => {
+      //   addMarker(merchant)
+      // })
+      fetchMerchants().then(() => {
+        merchants.value.forEach((merchant) => {
+          addMarker(merchant); // 遍历每个商家并添加到地图
+        });
+      });
     })
     .catch((e) => {
       console.error(e)
     })
 })
 
-onUnmounted(() => {
-  map?.destroy()
+  onUnmounted(() => {
+    map.destroy();
 })
 </script>
 
