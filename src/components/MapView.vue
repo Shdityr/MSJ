@@ -5,17 +5,6 @@
     </button> -->
     <div id="containerMap" style="width: 100%; height: 100vh"></div>
 
-    <!-- 模态框 -->
-    <!-- <div v-if="isModalVisible" class="modal">
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <h2>编辑点信息</h2>
-        <input v-model="currentPoint.name" placeholder="点名" />
-        <input v-model="currentPoint.image" placeholder="图片路径" />
-        <button @click="savePoint">确认</button>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script setup lang="ts">
@@ -77,47 +66,24 @@ onMounted(() => {
 //   }
 // ]
 
-const addMarker = (merchant: { location_x: number; location_y: number; name?: string; image?: string }) => {
+const addMarker = (merchant) => {
   const marker = new AMap.Marker({
-    position: new AMap.LngLat(merchant.location_x, merchant.location_y), // 使用商家的经纬度
+    position: new AMap.LngLat(114 + merchant.location_x, 30 + merchant.location_y), // 使用商家的经纬度
     title: merchant.name, // 可选：设置商家名称作为提示
   });
 
   // 添加自定义内容（如图片）
-  if (merchant.image) {
-    marker.setContent(`
-      <div style="text-align: center;">
-        <img src="${merchant.image}" alt="${merchant.name}" style="width: 50px; height: 50px; border-radius: 5px;" />
-        <p>${merchant.name}</p>
-      </div>
-    `);
-  }
+  // if (merchant.image) {
+  //   marker.setContent(`
+  //     <div style="text-align: center;">
+  //       <img src="${merchant.image}" alt="${merchant.name}" style="width: 50px; height: 50px; border-radius: 5px;" />
+  //       <p>${merchant.name}</p>
+  //     </div>
+  //   `);
+  // }
 
   marker.setMap(map); // 将标记添加到地图上
 };
-
-// function savePoint() {
-//   const index = points.findIndex(
-//     (p) =>
-//       p.position[0] === currentPoint.value.position[0] &&
-//       p.position[1] === currentPoint.value.position[1]
-//   )
-//   if (index !== -1) {
-//     points[index] = { ...currentPoint.value }
-//     // 更新地图上的标记内容
-//     // map.remove(marker) // 移除旧标记
-//     addMarker(points[index]) // 重新添加标记以更新内容
-//   }
-//   closeModal()
-// }
-
-// function closeModal() {
-//   isModalVisible.value = false
-// }
-
-// function toggleAddMarker() {
-//   canAddMarker.value = !canAddMarker.value // 切换添加点的状态
-// }
 
 onMounted(() => {
   AMapLoader.load({
@@ -142,28 +108,15 @@ onMounted(() => {
       const geolocation = new AMap.Geolocation()
       map.addControl(geolocation)
 
-      // 点击事件，添加点
-      // map.on('click', (e) => {
-      //   if (canAddMarker.value) {
-      //     const newPoint = {
-      //       name: '新点',
-      //       position: [e.lnglat.getLng(), e.lnglat.getLat()],
-      //       image: '../assets/icon1.png' // 默认图片路径
-      //     }
-      //     points.push(newPoint) // 添加新点到数组
-      //     addMarker(newPoint) // 添加标记到地图
-      //   }
-      // })
-
       // 添加所有初始点
-      // merchant.forEach((merchant) => {
-      //   addMarker(merchant)
-      // })
-      fetchMerchants().then(() => {
-        merchants.value.forEach((merchant) => {
-          addMarker(merchant); // 遍历每个商家并添加到地图
-        });
-      });
+      merchants.value.forEach((merchant) => {
+        addMarker(merchant)
+      })
+      // fetchMerchants().then(() => {
+      //   merchants.value.forEach((merchant) => {
+      //     addMarker(merchant); // 遍历每个商家并添加到地图
+      //   });
+      // });
     })
     .catch((e) => {
       console.error(e)
