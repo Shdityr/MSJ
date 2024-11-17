@@ -19,6 +19,10 @@ const selectDish = (merchantId, dishId) => {
   router.push({ name: 'dish', params: { merchantId: merchantId, dishId: dishId } })
 }
 
+const ToComment = (merchantId, dishId) => {
+  router.push({ name: 'make-comment', params: { merchantId: merchantId, dishId: dishId } })
+}
+
 function goBack() {
   router.push({ name: 'Home' })
 }
@@ -93,7 +97,7 @@ onMounted(() => {
 
 <template>
   <div v-if="currentMerchant">
-    <h3>Menu Dishes</h3>
+    <h3>商家页面</h3>
     <div class="merchant-container">
       <div class="merchant-header">
         <svg
@@ -125,7 +129,7 @@ onMounted(() => {
       </div>
 
       <div class="menu-dishes">
-        <h3>Menu Dishes</h3>
+        <h3>菜单</h3>
         <div class="dishes-container">
           <div
             v-for="dish in Dishes"
@@ -143,7 +147,7 @@ onMounted(() => {
       </div>
 
       <div class="reviews-section">
-        <h3>Reviews</h3>
+        <h3>评论区</h3>
         <div class="review-item" v-for="review in Reviews" :key="review.id">
           <div class="review-header">
             <!-- <div class="review-header-left">
@@ -168,6 +172,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
+      <button class="comment-button" @click=ToComment(merchantId, -1)>我要评论！</button>
     </div>
   </div>
 </template>

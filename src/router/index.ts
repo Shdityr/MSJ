@@ -61,7 +61,7 @@ const router = createRouter({
       component: LoginView
     }
     ,{
-      path: '/make-comment',
+      path: '/make-comment/:merchantId/:dishId',
       name: 'make-comment',
       component: MakeCommentView
     },

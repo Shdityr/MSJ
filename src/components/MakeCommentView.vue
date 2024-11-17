@@ -51,7 +51,8 @@ export default {
       commentText: '',
       rating: '',
       imageFile: null,
-      dishId: route.params.dishId 
+      merchantId: route.params.merchantId,
+      dishId: route.params.dishId
     };
   },
   methods: {
@@ -64,6 +65,8 @@ export default {
     async submitComment() {
       // 创建FormData对象以便上传文件
       const formData = new FormData();
+
+      formData.append('merchantId', this.merchantId); // merchantId
       formData.append('dishId', this.dishId); // dishId
       formData.append('contents', this.commentText); // 评论文本
       formData.append('rating', this.rating); //评分

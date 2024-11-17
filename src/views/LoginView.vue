@@ -53,7 +53,7 @@ MapView {
 
 .content {
   height: calc(100% - 88px); /* 减去底部按钮的高度和内边距 */
-  overflow-y: auto; /* 允许内容滚动 */
+  overflow-y: hidden; /* 允许内容滚动 */
   overflow-x: hidden;
   padding-bottom: 8px; /* 与底部按钮的间距 */
 }
