@@ -172,7 +172,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <button class="comment-button" @click=ToComment(merchantId, -1)>我要评论！</button>
+      <button class="comment-button" @click="ToComment(merchantId, -1)">我要评论！</button>
     </div>
   </div>
 </template>
