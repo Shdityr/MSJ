@@ -74,6 +74,7 @@ public class ReviewEntity {
         this.content=content;
         this.images=images;
         this.style=style;
+            this.rating=rating;
         this.time=time;
         this.averagePrice=averagePrice;
         this.restaurant=shop;
