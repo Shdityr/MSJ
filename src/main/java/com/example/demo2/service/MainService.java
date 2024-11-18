@@ -196,7 +196,7 @@ public class MainService {
             float location_x = restaurants.get(i).getLocation_x();
             float location_y = restaurants.get(i).getLocation_y();
 
-            RestaurantInfo restaurantInfo = new RestaurantInfo(name, rating, averagePrice, location, images, businessHours,location_x,location_y);
+            RestaurantInfo restaurantInfo = new RestaurantInfo(id,name, rating, averagePrice, location, images, businessHours,location_x,location_y);
 
             ret.add(restaurantInfo);
             System.out.println("111111111111");
