@@ -141,38 +141,39 @@ public class MainController {
 
     @RequestMapping(value = "/dishes",method = RequestMethod.GET)
     public @ResponseBody DishInfo getDishInfo(Integer DishesId, Integer ReviewsSorted) {
-        // return mainService.getDishInfo(DishesId, ReviewsSorted);
-                            try {
-        // 假设这里是插入评论的代码
-        return mainService.getDishInfo(DishesId, ReviewsSorted);
-    } catch (Exception e) {
-        e.printStackTrace();
-                        return null;
-    }
+         return mainService.getDishInfo(DishesId, ReviewsSorted);
+    //                         try {
+    //     // 假设这里是插入评论的代码
+    //     return mainService.getDishInfo(DishesId, ReviewsSorted);
+    // } catch (Exception e) {
+    //     e.printStackTrace();
+    //                     return null;
+    // }
 //        return mainService.getDishInfo(104, 1);
     }
 
     @RequestMapping(value = "/reviews", method = RequestMethod.GET)
     public @ResponseBody ReviewInfo getReviewInfo(Integer ReviewId) {
-        // return mainService.getReviewInfo(ReviewId);
-                    try {
-        // 假设这里是插入评论的代码
-return mainService.getReviewInfo(ReviewId);
-    } catch (Exception e) {
-        e.printStackTrace();
-                        return null;
-    }
+        return mainService.getReviewInfo(ReviewId);
+//                     try {
+//         // 假设这里是插入评论的代码
+// return mainService.getReviewInfo(ReviewId);
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//                         return null;
+//     }
         
     }
 
     @RequestMapping(value = "/reviews_insert",method = RequestMethod.POST)
     public @ResponseBody void insertReviewInfo(String contents, String rating,MultipartFile images, Integer dishId,Integer merchantId ) throws IOException {
-            try {
-        // 假设这里是插入评论的代码
-mainService.insertReviewInfo(contents, rating, images, dishId,merchantId );
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+            mainService.insertReviewInfo(contents, rating, images, dishId,merchantId );
+//         try {
+//         // 假设这里是插入评论的代码
+// mainService.insertReviewInfo(contents, rating, images, dishId,merchantId );
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//     }
     }
 
 
