@@ -313,8 +313,8 @@ public class MainService {
 
     }
 
-//    public void insertReviewInfo(String contents, String rating, MultipartFile file, int dishId ) throws IOException{
-public void insertReviewInfo(String contents, String rating,MultipartFile file,  int dishId ) throws IOException{
+public void insertReviewInfo(String contents, String rating,MultipartFile file,  int dishId ,int merchantId) throws IOException{
+        int id=merchantId;
         int userID=0;
         String content=contents;
 //        ClassPathResource file = new ClassPathResource("3a3b4825301cf2222faa384234c69665.jpg");
@@ -328,7 +328,7 @@ public void insertReviewInfo(String contents, String rating,MultipartFile file, 
         int time=20241117;
         float averagePrice=11;
         DishEntity dish= DishRepository.findById(dishId).get();
-        Review2Entity review = new Review2Entity(userID,content,images,Float.parseFloat(rating),style,time,averagePrice,dish);
+        Review2Entity review = new Review2Entity(id,userID,content,images,Float.parseFloat(rating),style,time,averagePrice,dish);
         Review2Repository.save(review);
     }
 
