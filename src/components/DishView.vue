@@ -12,7 +12,7 @@ const router = useRouter()
 const merchantId = route.params.merchantId
 const currentMerchant = ref<Merchant>(null)
 
-const dishId = route.params.dishId
+let dishId = route.params.dishId
 const Dishes = ref<Dish[]>([])
 const Reviews = ref<Review[]>([])
 
@@ -24,8 +24,14 @@ function goBack(merchantId) {
   router.push({ name: 'merchant', params: { merchantId: merchantId } })
 }
 
-const selectDish = (merchantId, dishId) => {
-  router.push({ name: 'dish', params: { merchantId: merchantId, dishId: dishId } })
+const selectDish = (merchantId, dish_Id) => {
+  router.push({ name: 'dish', params: { merchantId: merchantId, dishId: dish_Id } })
+  dishId = dish_Id
+  
+}
+
+const ToComment = (merchantId, dishId) => {
+  router.push({ name: 'make-comment', params: { merchantId: merchantId, dishId: dishId } })
 }
 
 const fetchData = async () => {
@@ -69,7 +75,8 @@ const fetchData = async () => {
   }
 
   try {
-    const reviewIds = currentMerchant.value.reviewsId
+    
+    const reviewIds = currentDish.value.reviewsId
 
     for (let i = 0; i < reviewIds.length; i++) {
       const reviewId = reviewIds[i]
@@ -167,6 +174,7 @@ onMounted(() => {
           />
         </div>
       </div>
+      <button class="comment-button" @click="ToComment(merchantId, dishId)">我要评论！</button>
     </div>
   </div>
 </template>
