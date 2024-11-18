@@ -141,7 +141,14 @@ public class MainController {
 
     @RequestMapping(value = "/dishes",method = RequestMethod.GET)
     public @ResponseBody DishInfo getDishInfo(Integer DishesId, Integer ReviewsSorted) {
+        // return mainService.getDishInfo(DishesId, ReviewsSorted);
+                            try {
+        // 假设这里是插入评论的代码
         return mainService.getDishInfo(DishesId, ReviewsSorted);
+    } catch (Exception e) {
+        e.printStackTrace();
+                        return null;
+    }
 //        return mainService.getDishInfo(104, 1);
     }
 
