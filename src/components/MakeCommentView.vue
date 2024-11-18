@@ -76,7 +76,7 @@ export default {
 
       try {
         // 替换为实际的API请求URL
-        const response = await fetch('http://121.40.208.74:8081/reviews', {
+        const response = await fetch('http://121.40.208.74:8081/reviews_insert', {
           method: 'POST',
           body: formData
         });
