@@ -66,7 +66,18 @@ public class ReviewEntity {
     public String getStyle(){return style;}
 
     public RestaurantEntity getRestaurant(){return restaurant;}
+    public ReviewEntity(){
 
+    }
+    public ReviewEntity(int userID,String content,String images,float rating,String style,int time,float averagePrice,RestaurantEntity shop){
+        this.userID=userID;
+        this.content=content;
+        this.images=images;
+        this.style=style;
+        this.time=time;
+        this.averagePrice=averagePrice;
+        this.restaurant=shop;
+    }
 
 //    public List<FoodEntity> geta(){return foodList;}
 
