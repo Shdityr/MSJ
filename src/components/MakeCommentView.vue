@@ -49,7 +49,7 @@ export default {
     const route = useRoute(); // 获取当前路由
     return {
       commentText: '',
-      rating: '',
+      rating: 0,
       imageFile: null,
       merchantId: route.params.merchantId,
       dishId: route.params.dishId
