@@ -167,13 +167,11 @@ public class MainController {
 
     @RequestMapping(value = "/reviews_insert",method = RequestMethod.POST)
     public @ResponseBody void insertReviewInfo(String contents, String rating,MultipartFile images, Integer dishId,Integer merchantId ) throws IOException {
+        if(dishId!=-1){
+            mainService.insertReview2Info(contents, rating, images, dishId,merchantId );
+        }else{
             mainService.insertReviewInfo(contents, rating, images, dishId,merchantId );
-//         try {
-//         // 假设这里是插入评论的代码
-// mainService.insertReviewInfo(contents, rating, images, dishId,merchantId );
-//     } catch (Exception e) {
-//         e.printStackTrace();
-//     }
+        }
     }
 
 
