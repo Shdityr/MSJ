@@ -40,13 +40,14 @@ const fetchData = async () => {
     currentMerchant.value.images.forEach((image, index) => {
       currentMerchant.value.images[index] = convertBase64ToImageUrl(image);
     });
+    console.log(currentMerchant.value)
   } catch (error) {
     console.error('获取商家信息失败:', error)
   }
 
   try {
     const DishIds = currentMerchant.value.DishesId
-
+    console.log(DishIds)
     for (let i = 0; i < DishIds.length; i++) {
       const DishId = DishIds[i]
       console.log(DishId);
