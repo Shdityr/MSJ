@@ -65,6 +65,18 @@ public class Review2Entity {
     public String getStyle(){return style;}
     public float getAveragePrice(){return averagePrice;}
     public DishEntity getDish(){return dish;}
+    public Review2Entity(){
+    }
+
+    public Review2Entity(int userID,String content,String images,float rating,String style,int time,float averagePrice,DishEntity dish){
+        this.userID=userID;
+        this.content=content;
+        this.images=images;
+        this.style=style;
+        this.time=time;
+        this.averagePrice=averagePrice;
+        this.dish=dish;
+    }
 
 
 //    public List<FoodEntity> geta(){return foodList;}
