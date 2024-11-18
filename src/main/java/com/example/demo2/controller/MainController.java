@@ -145,12 +145,12 @@ public class MainController {
 //        return mainService.getDishInfo(104, 1);
     }
 
-    @RequestMapping(value = "/reviews_insert", method = RequestMethod.POST)
+    @RequestMapping(value = "/reviews", method = RequestMethod.GET)
     public @ResponseBody ReviewInfo getReviewInfo(Integer ReviewId) {
         return mainService.getReviewInfo(ReviewId);
     }
 
-    @RequestMapping(value = "/reviews_insert",method = RequestMethod.GET)
+    @RequestMapping(value = "/reviews_insert",method = RequestMethod.POST)
     public @ResponseBody void insertReviewInfo(String contents, String rating,@RequestParam(value = "images", required = false) MultipartFile file, Integer dishId,Integer merchantId ) throws IOException {
         mainService.insertReviewInfo(contents, rating, file, dishId,merchantId );
     }
