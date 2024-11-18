@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo2.repository.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,6 +35,9 @@ public class MainService {
 
     @Autowired
     ReviewRepository ReviewRepository;
+
+    @Autowired
+    Review2Repository Review2Repository;
 
     @Autowired
     ImageRepository ImageRepository;
@@ -192,7 +196,7 @@ public class MainService {
             float location_x = restaurants.get(i).getLocation_x();
             float location_y = restaurants.get(i).getLocation_y();
 
-            RestaurantInfo restaurantInfo = new RestaurantInfo(id, name, rating, averagePrice, location, images, businessHours,location_x,location_y);
+            RestaurantInfo restaurantInfo = new RestaurantInfo(name, rating, averagePrice, location, images, businessHours,location_x,location_y);
 
             ret.add(restaurantInfo);
             System.out.println("111111111111");
@@ -307,6 +311,25 @@ public class MainService {
         return ret;
 
 
+    }
+
+//    public void insertReviewInfo(String contents, String rating, MultipartFile file, int dishId ) throws IOException{
+public void insertReviewInfo(String contents, String rating,MultipartFile file,  int dishId ) throws IOException{
+        int userID=0;
+        String content=contents;
+//        ClassPathResource file = new ClassPathResource("3a3b4825301cf2222faa384234c69665.jpg");
+        InputStream inputStream = file.getInputStream();
+        byte[] imageBytes = inputStream.readAllBytes();
+        // 将图片文件读为字节数组
+        ImageEntity image=new ImageEntity("dish",imageBytes);
+        ImageRepository.save(image);
+        String images=Integer.toString(image.id);
+        String style="";
+        int time=20241117;
+        float averagePrice=11;
+        DishEntity dish= DishRepository.findById(dishId).get();
+        Review2Entity review = new Review2Entity(userID,content,images,Float.parseFloat(rating),style,time,averagePrice,dish);
+        Review2Repository.save(review);
     }
 
 
