@@ -140,8 +140,8 @@ public class MainController {
 
 
     @RequestMapping(value = "/dishes",method = RequestMethod.GET)
-    public @ResponseBody DishInfo getDishInfo(Integer DishesId, Integer DishesSorted) {
-        return mainService.getDishInfo(DishesId, DishesSorted);
+    public @ResponseBody DishInfo getDishInfo(Integer DishesId, Integer ReviewsSorted) {
+        return mainService.getDishInfo(DishesId, ReviewsSorted);
 //        return mainService.getDishInfo(104, 1);
     }
 
