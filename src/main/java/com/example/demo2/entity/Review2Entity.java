@@ -68,8 +68,7 @@ public class Review2Entity {
     public Review2Entity(){
     }
 
-    public Review2Entity(int id,int userID,String content,String images,float rating,String style,int time,float averagePrice,DishEntity dish){
-        this.id=id;
+    public Review2Entity(int userID,String content,String images,float rating,String style,int time,float averagePrice,DishEntity dish){
         this.userID=userID;
         this.content=content;
         this.images=images;
