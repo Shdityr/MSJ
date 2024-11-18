@@ -151,8 +151,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "/reviews_insert",method = RequestMethod.POST)
-    public @ResponseBody void insertReviewInfo(String contents, String rating,@RequestParam(value = "images", required = false) MultipartFile file, Integer dishId,Integer merchantId ) throws IOException {
-        mainService.insertReviewInfo(contents, rating, file, dishId,merchantId );
+    public @ResponseBody void insertReviewInfo(String contents, String rating,MultipartFile images, Integer dishId,Integer merchantId ) throws IOException {
+        mainService.insertReviewInfo(contents, rating, images, dishId,merchantId );
     }
 
 
