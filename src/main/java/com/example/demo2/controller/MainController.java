@@ -145,7 +145,7 @@ public class MainController {
 //        return mainService.getDishInfo(104, 1);
     }
 
-    @RequestMapping(value = "/reviews",method = RequestMethod.GET)
+    @RequestMapping(value = "/reviews_insert", method = RequestMethod.POST)
     public @ResponseBody ReviewInfo getReviewInfo(Integer ReviewId) {
         return mainService.getReviewInfo(ReviewId);
     }
