@@ -81,6 +81,7 @@ const fetchData = async () => {
         }
       })
       const review = ref<Review>(null);
+      console.log(response.data);
       review.value = response.data;
       review.value.images.forEach((image, index) => {
         review.value.images[index] = convertBase64ToImageUrl(image);
