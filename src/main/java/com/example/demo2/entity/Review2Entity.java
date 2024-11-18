@@ -73,6 +73,7 @@ public class Review2Entity {
         this.content=content;
         this.images=images;
         this.style=style;
+        this.rating=rating;
         this.time=time;
         this.averagePrice=averagePrice;
         this.dish=dish;
