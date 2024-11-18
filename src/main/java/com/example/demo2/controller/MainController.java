@@ -147,7 +147,15 @@ public class MainController {
 
     @RequestMapping(value = "/reviews", method = RequestMethod.GET)
     public @ResponseBody ReviewInfo getReviewInfo(Integer ReviewId) {
-        return mainService.getReviewInfo(ReviewId);
+        // return mainService.getReviewInfo(ReviewId);
+                    try {
+        // 假设这里是插入评论的代码
+return mainService.getReviewInfo(ReviewId);
+    } catch (Exception e) {
+        e.printStackTrace();
+                        return null;
+    }
+        
     }
 
     @RequestMapping(value = "/reviews_insert",method = RequestMethod.POST)
