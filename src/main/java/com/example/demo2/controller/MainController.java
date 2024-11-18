@@ -8,6 +8,7 @@ import com.example.demo2.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -44,10 +45,10 @@ public class MainController {
 //            return new RespBean("failure", "0",value);
 //        }
 //    }
-    @RequestMapping("/1115")
+@RequestMapping(value = "/1115",method = RequestMethod.GET)
     public String printImage1115()throws IOException {
         // 返回打印信息作为API的响应
-        mainService.func3();
+        //mainService.insertReviewInfo("123456789", "1",101 );
         return "1115-Image bytes printed to the console";
     }
 
@@ -127,7 +128,7 @@ public class MainController {
 
 
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)  //将处理POST请求的URL映射到 addNewArticle 方法上。@RequestBody int id
-    public @ResponseBody RestaurantInfo_All getRestaurantInfo_All(int RestaurantId, int ReviewsSorted, int DishesSorted) {
+    public @ResponseBody RestaurantInfo_All getRestaurantInfo_All(Integer RestaurantId, Integer ReviewsSorted, Integer DishesSorted) {
         System.out.println("restaurants");
         return mainService.getRestaurantInfo_All(RestaurantId,ReviewsSorted,DishesSorted);
     }
@@ -139,13 +140,19 @@ public class MainController {
 
 
     @RequestMapping(value = "/dishes",method = RequestMethod.GET)
-    public @ResponseBody DishInfo getDishInfo(int DishesId, int DishesSorted) {
+    public @ResponseBody DishInfo getDishInfo(Integer DishesId, Integer DishesSorted) {
         return mainService.getDishInfo(DishesId, DishesSorted);
+//        return mainService.getDishInfo(104, 1);
     }
 
     @RequestMapping(value = "/reviews",method = RequestMethod.GET)
-    public @ResponseBody ReviewInfo getReviewInfo(int ReviewId) {
+    public @ResponseBody ReviewInfo getReviewInfo(Integer ReviewId) {
         return mainService.getReviewInfo(ReviewId);
+    }
+
+    @RequestMapping(value = "/reviews_insert",method = RequestMethod.GET)
+    public @ResponseBody void insertReviewInfo(String contents, String rating, MultipartFile file, Integer dishId ) throws IOException {
+        mainService.insertReviewInfo(contents, rating, file, dishId );
     }
 
 
