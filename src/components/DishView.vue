@@ -304,8 +304,6 @@ onMounted(() => {
   align-items: center;
 }
 
-
-
 .review-avatar {
   width: 50px;
   height: 50px;
